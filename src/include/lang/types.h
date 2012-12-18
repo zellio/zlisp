@@ -10,7 +10,7 @@
 #include "lang/types/boolean.h"
 
 
-#define TYPE(x) (((top_t*)(x))->type)
+#define TYPE(x) ((x)?(((top_t*)(x))->type):0x00)
 #define LANG_TYPE(x) (TYPE(x) & 0x0F)
 
 

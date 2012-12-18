@@ -39,6 +39,9 @@ typedef enum {
 } atom_type_e;
 
 
+#define ATOM_TYPE(x) ((TYPE(x)) & 0xF0)
+
+
 typedef struct atom atom_t;
 struct atom {
     type_e type;

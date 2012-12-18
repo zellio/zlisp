@@ -10,6 +10,7 @@ top_t* cons_create(top_t* car, top_t* cdr) {
         return NULL;
     cons->car = car;
     cons->cdr = cdr;
+    cons->type = LANG_T_CONS;
     return (top_t*)cons;
 }
 
