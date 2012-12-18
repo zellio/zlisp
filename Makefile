@@ -45,6 +45,19 @@ evalquote.o: lang/functions/evalquote.c lang/functions/evalquote.h
 functions: elementary.o auxiliary.o evalquote.o
 
 
+parser.o: repl/parser.c repl/parser.h
+	$(CC) $(CFLAGS) -I$(INCROOT) -o $(OBJROOT)/$(@) $(<)
+
+io.o: repl/io.c repl/io.h
+	$(CC) $(CFLAGS) -I$(INCROOT) -o $(OBJROOT)/$(@) $(<)
+
+repl.o: repl.c repl.h
+	$(CC) $(CFLAGS) -I$(INCROOT) -o $(OBJROOT)/$(@) $(<)
+
+
+repl: top.o atom.o cons.o boolean.o elementary.o auxiliary.o evalquote.o parser.o io.o repl.o
+	$(CC) -o $(@) $(OBJROOT)/top.o $(OBJROOT)/atom.o $(OBJROOT)/cons.o $(OBJROOT)/boolean.o $(OBJROOT)/elementary.o $(OBJROOT)/auxiliary.o $(OBJROOT)/evalquote.o $(OBJROOT)/parser.o $(OBJROOT)/io.o $(OBJROOT)/repl.o
+
 .PHONY: clean
 
 clean:
@@ -53,10 +66,3 @@ clean:
 .PHONY: rebuild
 
 rebuild: clean all
-
-
-scratch.o: scratch.c scratch.h
-	$(CC) $(CFLAGS) -I$(INCROOT) -o $(OBJROOT)/$(@) $(<)
-
-main: top.o atom.o cons.o boolean.o elementary.o auxiliary.o evalquote.o scratch.o
-	$(CC) -o $(@) $(OBJROOT)/top.o $(OBJROOT)/atom.o $(OBJROOT)/cons.o $(OBJROOT)/boolean.o $(OBJROOT)/elementary.o $(OBJROOT)/auxiliary.o $(OBJROOT)/evalquote.o $(OBJROOT)/scratch.o
