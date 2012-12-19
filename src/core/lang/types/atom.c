@@ -109,6 +109,7 @@ top_t* atom_create_symbol(char* name) {
     atom_t* atom = atom_create();
     atom->type |= ATOM_T_SYMBOL;
     atom->data.as_symbol = symbol_create( name );
+    atom->data.as_symbol = symbol_set_hash( atom->data.as_symbol );
     return (top_t*)atom;
 }
 

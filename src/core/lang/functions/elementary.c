@@ -20,7 +20,7 @@ top_t* cdr( top_t* sexpr ) {
 }
 
 top_t* eq( top_t* l, top_t* r ) {
-    if ((LANG_TYPE( l ) || LANG_TYPE( r )) != LANG_T_ATOM )
+    if ((LANG_TYPE( l ) | LANG_TYPE( r )) != LANG_T_ATOM )
         return FALSE;
     return AS_BOOLEAN(atom_compare((atom_t*)l, (atom_t*)r));
 }

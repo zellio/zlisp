@@ -15,7 +15,7 @@ VPATH=$(SRCROOT):$(INCROOT):$(TSTROOT):$(OBJROOT)
 
 .PHONY: all
 
-all: types functions
+all: types functions repl
 
 
 top.o: lang/types/top.c lang/types/top.h
