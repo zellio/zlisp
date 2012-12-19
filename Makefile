@@ -24,13 +24,22 @@ top.o: lang/types/top.c lang/types/top.h
 atom.o: lang/types/atom.c lang/types/atom.h
 	$(CC) $(CFLAGS) -I$(INCROOT) -o $(OBJROOT)/$(@) $(<)
 
+symbol.o: lang/types/atom/symbol.c lang/types/atom/symbol.h
+	$(CC) $(CFLAGS) -I$(INCROOT) -o $(OBJROOT)/$(@) $(<)
+
+boolean.o: lang/types/atom/boolean.c lang/types/atom/boolean.h
+	$(CC) $(CFLAGS) -I$(INCROOT) -o $(OBJROOT)/$(@) $(<)
+
+number.o: lang/types/atom/number.c lang/types/atom/number.h
+	$(CC) $(CFLAGS) -I$(INCROOT) -o $(OBJROOT)/$(@) $(<)
+
+# pointer.o: lang/types/atom/pointer.c lang/types/atom/pointer.h
+# 	$(CC) $(CFLAGS) -I$(INCROOT) -o $(OBJROOT)/$(@) $(<)
+
 cons.o: lang/types/cons.c lang/types/cons.h
 	$(CC) $(CFLAGS) -I$(INCROOT) -o $(OBJROOT)/$(@) $(<)
 
-boolean.o: lang/types/boolean.c lang/types/boolean.h
-	$(CC) $(CFLAGS) -I$(INCROOT) -o $(OBJROOT)/$(@) $(<)
-
-types: top.o atom.o cons.o boolean.o
+types: top.o atom.o symbol.o boolean.o number.o cons.o
 
 
 elementary.o: lang/functions/elementary.c lang/functions/elementary.h
