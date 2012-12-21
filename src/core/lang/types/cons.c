@@ -14,7 +14,7 @@ top_t* cons_create(top_t* car, top_t* cdr) {
     return (top_t*)cons;
 }
 
-int constop_destroy(cons_t* cons) {
+int cons_destroy(cons_t* cons) {
     if ( cons != NULL )
         free( cons );
     return 0;

@@ -6,8 +6,10 @@
 
 #include "lang/types/top.h"
 #include "lang/types/atom.h"
+#include "lang/types/atom/boolean.h"
+#include "lang/types/atom/number.h"
+#include "lang/types/atom/symbol.h"
 #include "lang/types/cons.h"
-#include "lang/types/boolean.h"
 
 
 #define TYPE(x) ((x)?(((top_t*)(x))->type):0x00)

@@ -22,7 +22,7 @@ struct cons {
 };
 
 top_t* cons_create(top_t* car, top_t* cdr);
-int constop_destroy(cons_t* cons);
+int cons_destroy(cons_t* cons);
 
 
 #ifdef __cplusplus

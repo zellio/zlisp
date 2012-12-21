@@ -37,6 +37,7 @@ top_t* atom_create_symbol(char* name);
 int atom_destroy_symbol(atom_t* atom);
 int atom_compare_symbol(atom_t* l, atom_t* r);
 
+int atom_symbol_compare_string(top_t* l, char* string);
 
 #ifdef __cplusplus
 };

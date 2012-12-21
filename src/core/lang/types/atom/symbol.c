@@ -96,3 +96,8 @@ int atom_compare_symbol(atom_t* l, atom_t* r) {
         return 0;
     return symbol_compare(((symbol_t*)l->data), ((symbol_t*)r->data));
 }
+
+
+int atom_symbol_compare_string(top_t* l, char* string) {
+    return symbol_compare_string((symbol_t*)((atom_t*)l)->data, string);
+}

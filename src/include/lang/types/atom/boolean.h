@@ -19,7 +19,9 @@ extern "C" {
 
 #define TRUE (boolean_true())
 #define FALSE (boolean_false())
-#define AS_BOOLEAN(x) ((x)) ? TRUE : FALSE
+#define C_BOOLEAN(x) ((x)!= FALSE)
+#define L_BOOLEAN(x) ((x)) ? TRUE : FALSE
+
 
 top_t* boolean_true(void);
 top_t* boolean_false(void);
