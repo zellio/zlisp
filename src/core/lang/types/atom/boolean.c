@@ -20,7 +20,7 @@ top_t* boolean_false(void) {
 }
 
 int boolean_to_int(top_t* value) {
-    return value == TRUE;
+    return (!(value == FALSE));
 }
 
 top_t* int_to_boolean(int value) {
