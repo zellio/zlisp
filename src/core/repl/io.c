@@ -46,15 +46,30 @@ int print_sexpr( top_t* sexpr ) {
 
 
 char* read_sexpr( void ) {
-    static char* buffer = NULL;
-    if ( buffer == NULL )
-        buffer = malloc( READ_BUFFER + 1);
+    static int BUFFER_SIZE = 1024;
+    static int BUFFER_SCALAR = 10;
 
-    for (int i = 0; i < READ_BUFFER + 1; i++ )
-        buffer[i] = 0x0;
+    char* buffer = calloc(BUFFER_SIZE, sizeof(char));
+    fgets( buffer, BUFFER_SIZE, stdin );
 
-    fgets( buffer, READ_BUFFER, stdin );
+    int scratch_buffer_size;
+    char* scratch_buffer;
+    while ((buffer[BUFFER_SIZE-2]!='\n')&&(buffer[BUFFER_SIZE-2]!='\0')) {
+        scratch_buffer_size = BUFFER_SIZE * BUFFER_SCALAR;
+        scratch_buffer = malloc(scratch_buffer_size * sizeof(char));
 
-    buffer[READ_BUFFER] = '\0';
+        int i;
+        for ( i = 0; i < BUFFER_SIZE; i++ )
+            scratch_buffer[i] = buffer[i];
+        for (; i < scratch_buffer_size; i++ )
+            scratch_buffer[i] = '\0';
+
+        fgets((scratch_buffer + BUFFER_SIZE) - 1, scratch_buffer_size, stdin);
+        free(buffer);
+
+        buffer = scratch_buffer;
+        BUFFER_SIZE = scratch_buffer_size;
+    }
+
     return buffer;
 }
