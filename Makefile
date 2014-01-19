@@ -13,7 +13,7 @@ VPATH=$(SRCROOT):$(INCROOT):$(TSTROOT):$(OBJROOT)
 
 .PHONY: all clean types
 
-types: object.o
+types: object.o boolean.o
 
 all: main
 
@@ -21,4 +21,7 @@ clean:
 	$(RM) $(OBJROOT)/*.o
 
 object.o: type/object.c type/object.h
+	$(CC) $(CFLAGS) -I$(INCROOT) -o $(OBJROOT)/$(@) $(<)
+
+boolean.o: type/boolean.c type/boolean.h
 	$(CC) $(CFLAGS) -I$(INCROOT) -o $(OBJROOT)/$(@) $(<)
