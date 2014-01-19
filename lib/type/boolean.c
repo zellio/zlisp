@@ -2,10 +2,8 @@
 
 object_t *boolean_create(void) {
     object_t *boolean = object_alloc();
-    if (boolean == NULL) {
-        fprintf(stderr, "Out of memory error in `boolean_create`\n");
-        exit(1);
-    }
+    if (boolean == NULL)
+        error("Out of memory error in `boolean_create`");
 
     boolean->comperator = &boolean_comperator;
     boolean->destructor = &boolean_destructor;
