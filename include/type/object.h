@@ -47,7 +47,7 @@ struct object {
 
         /* SCHEME_TYPE_FIXNUM, */
         struct {
-            uint64_t value;
+            int64_t value;
         } fixnum;
 
         /* SCHEME_TYPE_SYMBOL, */
