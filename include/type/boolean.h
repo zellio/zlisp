@@ -19,7 +19,7 @@ object_t *false_create(void);
 
 int boolean_destructor(object_t *self);
 int boolean_comperator(object_t *self, object_t *other);
-char *boolean_inspector(object_t *self);
+char *boolean_to_string(object_t *self);
 
 #ifdef __cplusplus
 };

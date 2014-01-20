@@ -37,7 +37,7 @@ struct object {
 
     int (*comperator)(object_t *self, object_t *other);
     int (*destructor)(object_t *self);
-    char *(*inspector)(object_t *self);
+    char *(*to_string)(object_t *self);
 
     union {
         /* SCHEME_TYPE_CHARACTER, */
@@ -102,7 +102,7 @@ object_t *object_create(object_type type);
 int object_destroy(object_t *object);
 
 int object_compare(object_t *object1, object_t *object2);
-char *object_inspect(object_t *object);
+char *object_to_string(object_t *object);
 
 #ifdef __cplusplus
 };

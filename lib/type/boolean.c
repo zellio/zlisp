@@ -7,7 +7,7 @@ object_t *boolean_create(void) {
 
     boolean->comperator = &boolean_comperator;
     boolean->destructor = &boolean_destructor;
-    boolean->inspector = &boolean_inspector;
+    boolean->to_string = &boolean_to_string;
 
     return boolean;
 }
@@ -55,7 +55,7 @@ int boolean_comperator(object_t *self, object_t *other) {
 static char *TRUE_STR = "true";
 static char *FALSE_STR = "false";
 
-char *boolean_inspector(object_t *self) {
+char *boolean_to_string(object_t *self) {
     if (is_false(self))
         return FALSE_STR;
     return TRUE_STR;

@@ -47,7 +47,7 @@ int object_compare(object_t *object1, object_t *object2) {
     return (uint32_t)(object1 - object2);
 }
 
-char *object_inspect(object_t *object) {
+char *object_to_string(object_t *object) {
     (void)object;
     return "";
 }
