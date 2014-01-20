@@ -13,7 +13,7 @@ VPATH=$(SRCROOT):$(INCROOT):$(TSTROOT):$(OBJROOT)
 
 .PHONY: all clean types
 
-types: object.o boolean.o character.o fixnum.o symbol.o
+types: object.o boolean.o character.o fixnum.o symbol.o pair.o
 
 all: main
 
@@ -33,4 +33,7 @@ fixnum.o: type/fixnum.c type/fixnum.h
 	$(CC) $(CFLAGS) -I$(INCROOT) -o $(OBJROOT)/$(@) $(<)
 
 symbol.o: type/symbol.c type/symbol.h
+	$(CC) $(CFLAGS) -I$(INCROOT) -o $(OBJROOT)/$(@) $(<)
+
+pair.o: type/pair.c type/pair.h
 	$(CC) $(CFLAGS) -I$(INCROOT) -o $(OBJROOT)/$(@) $(<)
