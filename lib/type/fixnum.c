@@ -16,8 +16,7 @@ object_t *fixnum_create(int64_t value) {
 
 
 int fixnum_destructor(object_t *self) {
-    (void)self;
-    return 0;
+    return object_free(self);
 }
 
 int fixnum_comperator(object_t *self, object_t *other) {

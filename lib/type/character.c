@@ -15,8 +15,7 @@ object_t *character_create(char value) {
 }
 
 int character_destructor(object_t *self) {
-    (void)self;
-    return 0;
+    return object_free(self);
 }
 
 int character_comperator(object_t *self, object_t *other) {
