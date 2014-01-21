@@ -1,1 +1,0 @@
-(CONS (QUOTE A) (CONS (QUOTE B)))
