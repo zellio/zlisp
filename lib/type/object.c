@@ -48,6 +48,12 @@ int object_compare(object_t *object1, object_t *object2) {
 }
 
 char *object_to_string(object_t *object) {
-    (void)object;
-    return "";
+    if (object->to_string)
+        return (*object->to_string)(object);
+
+    char *str = calloc(27, 1);
+
+    snprintf(str, 27, "#<Object:%#016lx>");
+
+    return str;
 }
