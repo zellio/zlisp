@@ -17,8 +17,10 @@ object_t *port_create(FILE* stream) {
 }
 
 int port_destructor(object_t *self) {
-    return object_free(self);
+    (void)self;
+    return 0;
 }
+
 int port_comperator(object_t *self, object_t *other) {
     return self - other;
 }
