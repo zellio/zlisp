@@ -53,7 +53,7 @@ char *object_to_string(object_t *object) {
 
     char *str = calloc(27, 1);
 
-    snprintf(str, 27, "#<Object:%#016lx>");
+    snprintf(str, 27, "#<Object:%#016lx>", (uint64_t)object);
 
     return str;
 }
