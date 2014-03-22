@@ -5,6 +5,17 @@ void error(char *message) {
     exit(1);
 }
 
+char *typed_pointer_to_string(char *type, size_t type_length, void *ptr) {
+    size_t str_len = type_length + 21;
+    char *str = calloc(str_len, sizeof(char));
+    if (str == NULL)
+        error("Memory error in typed_pointer_to_string");
+
+    snprintf(str, str_len, "#<%s:%#016lx>", type, (uint64_t)ptr);
+
+    return str;
+}
+
 object_t *object_alloc(void) {
     object_t *obj = calloc(1, sizeof(object_t));
     if (obj == NULL)
@@ -51,9 +62,5 @@ char *object_to_string(object_t *object) {
     if (object->to_string)
         return (*object->to_string)(object);
 
-    char *str = calloc(27, 1);
-
-    snprintf(str, 27, "#<Object:%#016lx>", (uint64_t)object);
-
-    return str;
+    return typed_pointer_to_string("Object", 6, object);
 }

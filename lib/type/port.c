@@ -24,13 +24,5 @@ int port_comperator(object_t *self, object_t *other) {
 }
 
 char *port_to_string(object_t *self) {
-    FILE *file = self->as.port.value;
-    int32_t fd = fileno(file);
-    int32_t fd_length = floor(log10(fd)) + 1;
-    size_t str_len = fd_length + 8 + 1;
-    char *str = calloc(str_len, sizeof(char));
-
-    snprintf(str, str_len, "#<Port:%d>", fd);
-
-    return str;
+    return typed_pointer_to_string("Port", 4, self);
 }

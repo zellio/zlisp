@@ -94,6 +94,7 @@ struct object {
 };
 
 void error(char *message);
+char *typed_pointer_to_string(char *type, size_t type_length, void *ptr);
 
 object_t *object_alloc(void);
 int object_free(object_t *object);

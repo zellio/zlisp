@@ -23,9 +23,5 @@ int builtin_comperator(object_t *self, object_t *other) {
 }
 
 char *builtin_to_string(object_t *self) {
-    char *str = calloc(28, 1);
-
-    snprintf(str, 28, "#<Builtin:%#016lx>", (uint64_t)self);
-
-    return str;
+    return typed_pointer_to_string("Builtin", 7, self);
 }
