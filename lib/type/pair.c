@@ -75,3 +75,37 @@ char *_pair_to_string(object_t *self, uint8_t in_list) {
 char *pair_to_string(object_t *self) {
     return _pair_to_string(self, 0);
 }
+
+object_t *pair_car(object_t *self) {
+    return self->as.pair.car;
+}
+
+object_t *pair_cdr(object_t *self) {
+    return self->as.pair.cdr;
+}
+
+object_t *pair_set_car(object_t *self, object_t *val) {
+    self->as.pair.car = val;
+    return self;
+}
+
+object_t *pair_set_cdr(object_t *self, object_t *val) {
+    self->as.pair.cdr = val;
+    return self;
+}
+
+object_t *pair_caar(object_t *self) {
+    return self->as.pair.car->as.pair.car;
+}
+
+object_t *pair_cadr(object_t *self) {
+    return self->as.pair.cdr->as.pair.car;
+}
+
+object_t *pair_cdar(object_t *self) {
+    return self->as.pair.car->as.pair.cdr;
+}
+
+object_t *pair_cddr(object_t *self) {
+    return self->as.pair.cdr->as.pair.cdr;
+}
