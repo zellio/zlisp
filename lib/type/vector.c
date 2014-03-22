@@ -27,7 +27,7 @@ int vector_destructor(object_t *self) {
     while(self->as.vector.length--)
         object_destroy(*self->as.vector.value++);
 
-    return object_free(self);
+    return 0;
 }
 
 int vector_comperator(object_t *self, object_t *other) {

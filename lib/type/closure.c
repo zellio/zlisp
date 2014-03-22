@@ -17,9 +17,9 @@ object_t *closure_create(object_t *parameters, object_t *body, object_t *env) {
 }
 
 int closure_destructor(object_t *self) {
-    object_free(self->as.closure.parameters);
-    object_free(self->as.closure.body);
-    object_free(self->as.closure.env);
+    object_destroy(self->as.closure.parameters);
+    object_destroy(self->as.closure.body);
+    object_destroy(self->as.closure.env);
 
     return 0;
 }

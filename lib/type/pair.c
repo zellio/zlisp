@@ -22,7 +22,7 @@ int pair_destructor(object_t *self) {
     object_destroy(self->as.pair.car);
     object_destroy(self->as.pair.cdr);
 
-    return object_free(self);
+    return 0;
 }
 
 int pair_comperator(object_t *self, object_t *other) {

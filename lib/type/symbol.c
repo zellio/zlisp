@@ -39,7 +39,7 @@ int symbol_destructor(object_t *self) {
 
     free(self->as.symbol.value);
 
-    return object_free(self);
+    return 0;
 }
 
 int symbol_comperator(object_t *self, object_t *other) {

@@ -31,7 +31,7 @@ int string_destructor(object_t *self) {
 
     free(self->as.string.value);
 
-    return object_free(self);
+    return 0;
 }
 
 int string_comperator(object_t *self, object_t *other) {
