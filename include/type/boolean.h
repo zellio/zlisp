@@ -21,6 +21,9 @@ int boolean_destructor(object_t *self);
 int boolean_comperator(object_t *self, object_t *other);
 char *boolean_to_string(object_t *self);
 
+// object functions
+object_t *boolean_not(object_t *self);
+
 #ifdef __cplusplus
 };
 #endif

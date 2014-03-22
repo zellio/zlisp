@@ -60,3 +60,9 @@ char *boolean_to_string(object_t *self) {
         return FALSE_STR;
     return TRUE_STR;
 }
+
+object_t *boolean_not(object_t *self) {
+    if (is_false(self))
+        return true_create();
+    return false_create();
+}
