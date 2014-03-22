@@ -1,7 +1,7 @@
 CC=clang
 RM=rm -Rf
 
-CFLAGS=-ggdb -x c -std=c99 -c -Wall -Wextra -Werror -pedantic-errors -ferror-limit=1
+CFLAGS=-ggdb -x c -c -Wall -Wextra -Werror -pedantic-errors # -ferror-limit=1
 
 SRCROOT=lib
 INCROOT=include
@@ -13,7 +13,7 @@ VPATH=$(SRCROOT):$(INCROOT):$(TSTROOT):$(OBJROOT)
 
 .PHONY: all clean types
 
-types: object.o boolean.o character.o fixnum.o symbol.o pair.o string.o vector.o
+types: object.o boolean.o character.o fixnum.o symbol.o pair.o string.o vector.o port.o
 
 all: main
 
@@ -42,4 +42,7 @@ string.o: type/string.c type/string.h
 	$(CC) $(CFLAGS) -I$(INCROOT) -o $(OBJROOT)/$(@) $(<)
 
 vector.o: type/vector.c type/vector.h
+	$(CC) $(CFLAGS) -I$(INCROOT) -o $(OBJROOT)/$(@) $(<)
+
+port.o: type/port.c type/port.h
 	$(CC) $(CFLAGS) -I$(INCROOT) -o $(OBJROOT)/$(@) $(<)
