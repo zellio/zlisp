@@ -1,5 +1,3 @@
-#include <math.h>
-// #include <stdio.h>
 #include "type/builtin.h"
 
 object_t *builtin_create(object_t *(*fn)(object_t *arguments)) {
