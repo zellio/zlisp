@@ -18,6 +18,12 @@ int fixnum_destructor(object_t *self);
 int fixnum_comperator(object_t *self, object_t *other);
 char *fixnum_to_string(object_t *self);
 
+object_t *fixnum_add(object_t *self, object_t *other);
+object_t *fixnum_subtract(object_t *self, object_t *other);
+object_t *fixnum_multiply(object_t *args, object_t *other);
+object_t *fixnum_quotient(object_t *args, object_t *other);
+object_t *fixnum_remainder(object_t *args, object_t *other);
+
 #ifdef __cplusplus
 };
 #endif
