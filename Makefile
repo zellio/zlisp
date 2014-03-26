@@ -11,10 +11,12 @@ OBJROOT=build
 
 VPATH=$(SRCROOT):$(INCROOT):$(TSTROOT):$(OBJROOT)
 
-.PHONY: all clean types
+.PHONY: all clean types core
 
 types: object.o boolean.o character.o fixnum.o symbol.o pair.o string.o\
   vector.o port.o builtin.o closure.o
+
+core: types core.o
 
 all: main
 
@@ -52,4 +54,8 @@ builtin.o: type/builtin.c type/builtin.h
 	$(CC) $(CFLAGS) -I$(INCROOT) -o $(OBJROOT)/$(@) $(<)
 
 closure.o: type/closure.c type/closure.h
+	$(CC) $(CFLAGS) -I$(INCROOT) -o $(OBJROOT)/$(@) $(<)
+
+
+core.o: core.h core.c
 	$(CC) $(CFLAGS) -I$(INCROOT) -o $(OBJROOT)/$(@) $(<)

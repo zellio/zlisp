@@ -62,3 +62,15 @@ char *string_to_string(object_t *self) {
 
     return str;
 }
+
+char string_get_character_at(object_t *self, size_t index) {
+    if (index > self->as.string.length)
+        return '\0';
+    return self->as.string.value[index];
+}
+
+object_t *string_set_index(object_t *self, size_t index, char character) {
+    if (index > self->as.string.length)
+        return NULL;
+
+}
