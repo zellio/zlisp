@@ -1,7 +1,7 @@
 CC=clang
 RM=rm -Rf
 
-CFLAGS=-ggdb -x c -c -Wall -Wextra -Werror -pedantic-errors # -ferror-limit=1
+CFLAGS=-ggdb -x c --std=c99 -c -Wall -Wextra -Werror -pedantic-errors -ferror-limit=1
 
 SRCROOT=lib
 INCROOT=include

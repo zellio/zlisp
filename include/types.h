@@ -13,4 +13,9 @@
 #include "type/builtin.h"
 #include "type/closure.h"
 
+#define ZEME_TYPE_GET(type, field, object) (object->as.type.field)
+#define AS_ZEME_TYPE(type, ...) (type ## _create(__VA_ARGS__))
+#define AS_C_TYPE(type, object) ZEME_TYPE_GET(type, value, object)
+
+
 #endif

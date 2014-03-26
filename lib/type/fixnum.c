@@ -1,5 +1,7 @@
 #include "type/fixnum.h"
 
+#include <math.h>
+
 object_t *fixnum_create(int64_t value) {
     object_t *fixnum = object_create(SCHEME_TYPE_FIXNUM);
     if (fixnum == NULL)
@@ -23,8 +25,6 @@ int fixnum_destructor(object_t *self) {
 int fixnum_comperator(object_t *self, object_t *other) {
     return self->as.fixnum.value - other->as.fixnum.value;
 }
-
-#include <math.h>
 
 char *fixnum_to_string(object_t *self) {
     size_t length = 0;
