@@ -73,4 +73,6 @@ object_t *string_set_index(object_t *self, size_t index, char character) {
     if (index > self->as.string.length)
         return NULL;
 
+    self->as.string.value[index] = character;
+    return self;
 }
