@@ -9,8 +9,8 @@ ZEME_FN(not, args) {
     return boolean_not(pair_car(args));
 }
 
-inline object_t *zeme_predicate(int32_t bool) {
-    if (bool)
+inline object_t *zeme_predicate(int32_t boolean) {
+    if (boolean)
         return true_create();
     return false_create();
 }
