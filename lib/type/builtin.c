@@ -5,6 +5,7 @@ object_t *builtin_create(object_t *(*fn)(object_t *arguments, object_t *env)) {
     if (builtin == NULL)
         error("Out of memory error in `pair_create`");
 
+    builtin->as.builtin.special = 0;
     builtin->as.builtin.fn = fn;
 
     builtin->comperator = &builtin_comperator;
@@ -12,6 +13,12 @@ object_t *builtin_create(object_t *(*fn)(object_t *arguments, object_t *env)) {
     builtin->to_string = &builtin_to_string;
 
     return builtin;
+}
+
+object_t *builtin_create_special(object_t *(*fn)(object_t *arguments, object_t *env)) {
+    object_t *obj = builtin_create(fn);
+    obj->as.builtin.special = 1;
+    return obj;
 }
 
 int builtin_destructor(object_t *self) {

@@ -81,6 +81,7 @@ struct object {
 
         /* SCHEME_TYPE_BUILTIN, */
         struct {
+            int special;
             object_t *(*fn)(object_t *arguments, object_t *env);
         } builtin;
 

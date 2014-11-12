@@ -11,8 +11,10 @@ extern "C" {
 #endif
 
 object_t *builtin_create(object_t *(*fn)(object_t *arguments, object_t *env));
+object_t *builtin_create_special(object_t *(*fn)(object_t *arguments, object_t *env));
 
 #define is_builtin(x) (IS_TYPE((x), SCHEME_TYPE_BUILTIN))
+#define is_special(x) (is_builtin((x)) && (x)->as.builtin.special)
 
 int builtin_destructor(object_t *self);
 int builtin_comperator(object_t *self, object_t *other);
