@@ -1,61 +1,48 @@
+APP=zeme
+
 CC=clang
-RM=rm -Rf
+RM=rm
 
-CFLAGS=-ggdb -x c --std=c99 -c -Wall -Wextra -Werror -pedantic-errors -ferror-limit=1
+CFLAGS=-ggdb -x c --std=c99 -c -Wall -Wextra -pedantic -ferror-limit=1
+LDFLAGS=-lm
 
-SRCROOT=lib
-INCROOT=include
-TSTROOT=test
+SRCEXT=c
+SRCDIR=lib
+INCDIR=include
+OBJDIR=obj
+BINDIR=bin
 
-OBJROOT=build
+SRCS    := $(shell find $(SRCDIR) -name '*.$(SRCEXT)')
+SRCDIRS := $(shell find . -name '*.$(SRCEXT)' -exec dirname {} \; | uniq)
 
-VPATH=$(SRCROOT):$(INCROOT):$(TSTROOT):$(OBJROOT)
+OBJS    := $(patsubst $(SRCDIR)%.$(SRCEXT),$(OBJDIR)%.o,$(SRCS))
+OBJDIRS := $(subst $(SRCDIR),$(OBJDIR),$(SRCDIRS))
 
-.PHONY: all clean types core
+.PHONY: all buildrepo clean distclean
 
-types: object.o boolean.o character.o fixnum.o symbol.o pair.o string.o\
-  vector.o port.o builtin.o closure.o
+all: $(BINDIR)/$(APP)
 
-core: types core.o
+$(BINDIR)/$(APP): buildrepo $(OBJS)
+	@mkdir -p `dirname $(@)`
+	@echo "Linking $(@) ... "
+	@$(CC) $(OBJS) $(LDFLAGS) -o $(@)
 
-all: main
+$(OBJDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
+	@echo "Compiling $(<) ... "
+	@$(CC) $(CFLAGS) -I$(INCDIR) $(<) -o $(@)
+
+buildrepo:
+	@$(call make-repo)
+
+define make-repo
+	for dir in $(OBJDIRS); \
+	do \
+		mkdir -p $$dir; \
+	done
+endef
 
 clean:
-	$(RM) $(OBJROOT)/*.o
+	$(RM) -fr $(OBJDIR)
 
-object.o: type/object.c type/object.h
-	$(CC) $(CFLAGS) -I$(INCROOT) -o $(OBJROOT)/$(@) $(<)
-
-boolean.o: type/boolean.c type/boolean.h
-	$(CC) $(CFLAGS) -I$(INCROOT) -o $(OBJROOT)/$(@) $(<)
-
-character.o: type/character.c type/character.h
-	$(CC) $(CFLAGS) -I$(INCROOT) -o $(OBJROOT)/$(@) $(<)
-
-fixnum.o: type/fixnum.c type/fixnum.h
-	$(CC) $(CFLAGS) -I$(INCROOT) -o $(OBJROOT)/$(@) $(<)
-
-symbol.o: type/symbol.c type/symbol.h
-	$(CC) $(CFLAGS) -I$(INCROOT) -o $(OBJROOT)/$(@) $(<)
-
-pair.o: type/pair.c type/pair.h
-	$(CC) $(CFLAGS) -I$(INCROOT) -o $(OBJROOT)/$(@) $(<)
-
-string.o: type/string.c type/string.h
-	$(CC) $(CFLAGS) -I$(INCROOT) -o $(OBJROOT)/$(@) $(<)
-
-vector.o: type/vector.c type/vector.h
-	$(CC) $(CFLAGS) -I$(INCROOT) -o $(OBJROOT)/$(@) $(<)
-
-port.o: type/port.c type/port.h
-	$(CC) $(CFLAGS) -I$(INCROOT) -o $(OBJROOT)/$(@) $(<)
-
-builtin.o: type/builtin.c type/builtin.h
-	$(CC) $(CFLAGS) -I$(INCROOT) -o $(OBJROOT)/$(@) $(<)
-
-closure.o: type/closure.c type/closure.h
-	$(CC) $(CFLAGS) -I$(INCROOT) -o $(OBJROOT)/$(@) $(<)
-
-
-core.o: core.h core.c
-	$(CC) $(CFLAGS) -I$(INCROOT) -o $(OBJROOT)/$(@) $(<)
+distclean: clean
+	$(RM) -fr $(BINDIR)
