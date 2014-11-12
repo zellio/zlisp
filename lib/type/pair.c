@@ -41,16 +41,23 @@ char *_pair_to_string(object_t *self, uint8_t in_list) {
         if (IS_TYPE(cdr, SCHEME_TYPE_NIL))
             return car_str;
 
-        char *cdr_str = object_to_string(cdr);
 
-        size_t size = strlen(car_str) + 1 + strlen(cdr_str) + 1;
+        char *cdr_str;
+
+        size_t size = strlen(car_str) + 2;
 
         if (IS_TYPE(cdr, SCHEME_TYPE_PAIR)) {
+            cdr_str = _pair_to_string(cdr, 1);
+            size += strlen(cdr_str);
+
             str = calloc(size, 1);
             snprintf(str, size, "%s %s", car_str, cdr_str);
         }
         else {
-            size++;
+            cdr_str = object_to_string(cdr);
+            size += strlen(cdr_str);
+
+            size += 2;
             str = calloc(size, 1);
             snprintf(str, size, "%s . %s", car_str, cdr_str);
         }
