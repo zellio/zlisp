@@ -93,9 +93,9 @@ ZEME_FN(if) {
     return eval(car(cdr(args)), env);
 }
 
-// ZEME_FN(quote) {
-//     return car(args);
-// }
+ZEME_FN(quote) {
+    return car(args);
+}
 
 // ZEME_FN(car) {
 //     return car(car(args));
