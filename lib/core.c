@@ -47,13 +47,16 @@ object_t *eval(object_t *expr, object_t *env) {
         return expr;
 
     case SCHEME_TYPE_SYMBOL:
-        tmp = assoc(expr, env);
+        tmp = assoc(env, expr);
         if (is_nil(tmp))
             error("Unbound symbol");
         return cdr(tmp);
 
     case SCHEME_TYPE_PAIR:
-        return apply(eval(car(expr), env), evlist(cdr(expr), env), env);
+        tmp = eval(car(expr), env);
+        if (is_special(tmp))
+            return apply(tmp, cdr(expr), env);
+        return apply(tmp, evlist(cdr(expr), env), env);
 
     case SCHEME_TYPE_PORT:
     case SCHEME_TYPE_BUILTIN:
