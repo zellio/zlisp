@@ -31,11 +31,11 @@ char *fixnum_to_string(object_t *self) {
     int64_t value = self->as.fixnum.value;
     uint8_t is_negative = (value < 0);
 
-    length += (size_t)(floor(log10(abs(value))) + 1);
+    length += (size_t)(floor(log10(labs(value))) + 1);
 
     if (is_negative) {
         length++;
-        value = abs(value);
+        value = labs(value);
     }
 
     char *str = calloc(length + 1, 1);
