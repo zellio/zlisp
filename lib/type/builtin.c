@@ -1,6 +1,6 @@
 #include "type/builtin.h"
 
-object_t *builtin_create(object_t *(*fn)(object_t *arguments)) {
+object_t *builtin_create(object_t *(*fn)(object_t *arguments, object_t *env)) {
     object_t *builtin = object_create(SCHEME_TYPE_BUILTIN);
     if (builtin == NULL)
         error("Out of memory error in `pair_create`");

@@ -81,7 +81,7 @@ struct object {
 
         /* SCHEME_TYPE_BUILTIN, */
         struct {
-            object_t *(*fn)(object_t *arguments);
+            object_t *(*fn)(object_t *arguments, object_t *env);
         } builtin;
 
         /* SCHEME_TYPE_CLOSURE */
