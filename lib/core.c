@@ -8,7 +8,7 @@ object_t *intern(char *label) {
     for (object_t *syms = sym_list; !is_nil(syms); syms = cdr(syms)) {
         sym = car(syms);
         if (!strcmp(label, symbol_label(sym)))
-            return car(syms);
+            return sym;
     }
 
     sym = symbol_create(label);
