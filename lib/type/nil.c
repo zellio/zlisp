@@ -30,5 +30,8 @@ static char *NIL_STR = "nil";
 
 char *nil_to_string(object_t *self) {
     (void)self;
-    return NIL_STR;
+    char *str = calloc(4, 1);
+    int i = 4;
+    while (i--) str[i] = NIL_STR[i];
+    return str;
 }

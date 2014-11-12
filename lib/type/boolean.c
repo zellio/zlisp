@@ -56,9 +56,22 @@ static char *TRUE_STR = "true";
 static char *FALSE_STR = "false";
 
 char *boolean_to_string(object_t *self) {
-    if (is_false(self))
-        return FALSE_STR;
-    return TRUE_STR;
+    char *src, *dst;
+    size_t len;
+
+    if (is_false(self)) {
+        len = 6;
+        src = FALSE_STR;
+    }
+    else {
+        len = 5;
+        src = TRUE_STR;
+    }
+
+    dst = calloc(len, 1);
+    while (len--) dst[len] = src[len];
+
+    return dst;
 }
 
 object_t *boolean_not(object_t *self) {
