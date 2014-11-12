@@ -16,7 +16,7 @@ object_t *vector_create(size_t length);
 
 int vector_destructor(object_t *self);
 int vector_comperator(object_t *self, object_t *other);
-char *vector_to_vector(object_t *self);
+char *vector_to_string(object_t *self);
 
 #ifdef __cplusplus
 };

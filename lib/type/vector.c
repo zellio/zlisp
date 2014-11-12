@@ -15,7 +15,7 @@ object_t *vector_create(size_t length) {
 
     vector->comperator = &vector_comperator;
     vector->destructor = &vector_destructor;
-    vector->to_string = &vector_to_vector;
+    vector->to_string = &vector_to_string;
 
     return vector;
 }
