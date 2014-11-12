@@ -16,7 +16,6 @@ object_t *fixnum_create(int64_t value) {
     return fixnum;
 }
 
-
 int fixnum_destructor(object_t *self) {
     (void)self;
     return 0;
