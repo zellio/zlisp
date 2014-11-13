@@ -97,38 +97,110 @@ ZEME_FN(quote) {
     return car(args);
 }
 
-// ZEME_FN(car) {
-//     return car(car(args));
-// }
+ZEME_FN(cons) {
+    return pair_create(car(args), car(cdr(args)));
+}
 
-// ZEME_FN(cdr) {
-//     return cdr(car(args));
-// }
+ZEME_FN(begin) {
+    object_t *exprs = args;
+    while (!is_nil(cdr(exprs))) {
+        eval(car(exprs), env);
+        exprs = cdr(exprs);
+    }
+    return eval(car(exprs), env);
+}
 
-// ZEME_FN(cons) {
-//     return pair_create(car(car(args)), cdr(car(args)));
-// }
+ZEME_FN(let) {
+    object_t *bindings = car(args);
+    object_t *form = car(cdr(args));
+
+    while (!is_nil(bindings)) {
+        env = extend(env, car(car(bindings)), eval(car(cdr(car(bindings))), env));
+        bindings = cdr(bindings);
+    }
+
+    return eval(form, env);
+}
+
+ZEME_FN(car) {
+    return car(car(args));
+}
+
+ZEME_FN(cdr) {
+    return cdr(car(args));
+}
 
 object_t *init_env(void) {
+
     nil = nil_create();
+    sym_list = nil;
 
-    global_env = cons(nil, nil);
-    sym_list = cons(nil, nil);
+    intern("nil");
 
-    extend_global_env(intern("nil"), nil);
-    extend_global_env(intern("#t"), true_create());
-    extend_global_env(intern("#f"), false_create());
-    extend_global_env(intern("if"), builtin_create(zeme_fn_if));
-    // extend_global_env(intern("quote"), builtin_create(zeme_fn_quote));
-    // extend_global_env(intern("car"), builtin_create(zeme_fn_car));
-    // extend_global_env(intern("cdr"), builtin_create(zeme_fn_cdr));
-    // extend_global_env(intern("cons"), builtin_create(zeme_fn_cons));
+    object_t *env = nil;
 
-    return global_env;
+    env = extend(env, intern("nil"), nil);
+    env = extend(env, intern("#t"), true_create());
+    env = extend(env, intern("#f"), false_create());
+    env = extend(env, intern("quote"), builtin_create_special(&zeme_fn_quote));
+    env = extend(env, intern("cons"), builtin_create(&zeme_fn_cons));
+    env = extend(env, intern("car"), builtin_create(zeme_fn_car));
+    env = extend(env, intern("cdr"), builtin_create(zeme_fn_cdr));
+    env = extend(env, intern("if"), builtin_create_special(&zeme_fn_if));
+    env = extend(env, intern("let"), builtin_create_special(&zeme_fn_let));
+    env = extend(env, intern("begin"), builtin_create_special(&zeme_fn_begin));
+
+    return env;
 }
 
 int main(void) {
-    init_env();
-    fprintf(stdout, "%s\n", object_to_string(global_env));
+    object_t *env = init_env();
+
+    object_t *quote_stmt = cons(intern("quote"), cons(intern("foo"), nil));
+
+    fprintf(stdout, "%s\n", object_to_string(quote_stmt));
+    fprintf(stdout, "%s\n", object_to_string(eval(quote_stmt, env)));
+
+    object_t *cons_stmt = cons(intern("cons"),
+                                   cons(quote_stmt,
+                                        cons(cons(intern("quote"), cons(intern("bar"), nil)), nil)));
+
+    fprintf(stdout, "%s\n", object_to_string(cons_stmt));
+    fprintf(stdout, "%s\n", object_to_string(eval(cons_stmt, env)));
+
+    object_t *car_stmt = cons(intern("car"), cons(cons_stmt, nil));
+
+    fprintf(stdout, "%s\n", object_to_string(car_stmt));
+    fprintf(stdout, "%s\n", object_to_string(eval(car_stmt, env)));
+
+    object_t *cdr_stmt = cons(intern("cdr"), cons(cons_stmt, nil));
+
+    fprintf(stdout, "%s\n", object_to_string(cdr_stmt));
+    fprintf(stdout, "%s\n", object_to_string(eval(cdr_stmt, env)));
+
+    object_t *if_stmt = cons(intern("if"),
+                                  cons(intern("#f"),
+                                       cons(quote_stmt,
+                                            cons(cons(intern("quote"), cons(intern("bar"), nil)), nil))));
+
+    fprintf(stdout, "%s\n", object_to_string(if_stmt));
+    fprintf(stdout, "%s\n", object_to_string(eval(if_stmt, env)));
+
+    object_t *let_stmt = cons(intern("let"),
+                              cons(cons(cons(intern("x"), cons(fixnum_create(1), nil)),
+                                        cons(cons(intern("y"), cons(fixnum_create(2), nil)), nil)),
+                                   cons(cons(intern("cons"),
+                                             cons(intern("x"),
+                                                  cons(intern("y"), nil))), nil)));
+    fprintf(stdout, "%s\n", object_to_string(let_stmt));
+    fprintf(stdout, "%s\n", object_to_string(eval(let_stmt, env)));
+
+    object_t *begin_stmt = cons(intern("begin"), cons(if_stmt, cons(quote_stmt, cons(cons_stmt, nil))));
+    fprintf(stdout, "%s\n", object_to_string(begin_stmt));
+    fprintf(stdout, "%s\n", object_to_string(eval(begin_stmt, env)));
+
+
+    fprintf(stdout, "%s\n", object_to_string(env));
+
     return 0;
 }
