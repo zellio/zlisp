@@ -18,10 +18,10 @@ object_t *intern(char *label) {
 
 /// ENV
 
-object_t *extend_global_env(object_t *key, object_t *val) {
-    pair_set_cdr(global_env, cons(cons(key, val), cdr(global_env)));
-    return val;
-}
+// object_t *extend_global_env(object_t *key, object_t *val) {
+//     pair_set_cdr(global_env, cons(cons(key, val), cdr(global_env)));
+//     return val;
+// }
 
 object_t *assoc(object_t *alist, object_t *key) {
     if (is_nil(alist))

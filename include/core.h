@@ -13,7 +13,7 @@ extern "C" {
 
 #include <string.h>
 
-object_t *sym_list, *global_env, *nil, *tee, *eff;
+object_t *sym_list, *nil, *tee, *eff;
 
 #define car(X) (pair_car((X)))
 #define cdr(X) (pair_cdr((X)))
