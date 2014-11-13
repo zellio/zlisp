@@ -9,7 +9,6 @@ extern "C" {
 #if 0
 }
 #endif
-#include "core.h"
 
 #include <string.h>
 
