@@ -87,12 +87,6 @@ object_t *apply(object_t *proc, object_t *vals, object_t *env) {
 
 // #define ZEME_FN(label) object_t *zeme_fn_ ## label(object_t *args, object_t* env)
 
-ZEME_FN(if) {
-    if (is_false(eval(car(args), env)))
-        return eval(car(cdr(cdr(args))), env);
-    return eval(car(cdr(args)), env);
-}
-
 ZEME_FN(quote) {
     return car(args);
 }
@@ -101,13 +95,18 @@ ZEME_FN(cons) {
     return pair_create(car(args), car(cdr(args)));
 }
 
-ZEME_FN(begin) {
-    object_t *exprs = args;
-    while (!is_nil(cdr(exprs))) {
-        eval(car(exprs), env);
-        exprs = cdr(exprs);
-    }
-    return eval(car(exprs), env);
+ZEME_FN(car) {
+    return car(car(args));
+}
+
+ZEME_FN(cdr) {
+    return cdr(car(args));
+}
+
+ZEME_FN(if) {
+    if (is_false(eval(car(args), env)))
+        return eval(car(cdr(cdr(args))), env);
+    return eval(car(cdr(args)), env);
 }
 
 ZEME_FN(let) {
@@ -122,12 +121,13 @@ ZEME_FN(let) {
     return eval(form, env);
 }
 
-ZEME_FN(car) {
-    return car(car(args));
-}
-
-ZEME_FN(cdr) {
-    return cdr(car(args));
+ZEME_FN(begin) {
+    object_t *exprs = args;
+    while (!is_nil(cdr(exprs))) {
+        eval(car(exprs), env);
+        exprs = cdr(exprs);
+    }
+    return eval(car(exprs), env);
 }
 
 object_t *init_env(void) {
