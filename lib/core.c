@@ -129,6 +129,36 @@ ZEME_FN(begin) {
     }
     return eval(car(exprs), env);
 }
+// fixnum
+ZEME_FN(fixnum_add) {
+    uint64_t val = 0;
+    object_t *exprs = args;
+
+    while (!is_nil(exprs)) {
+        val += car(exprs)->as.fixnum.value;
+        exprs = cdr(exprs);
+    }
+
+    return fixnum_create(val);
+}
+
+ZEME_FN(fixnum_subtract) {
+    object_t *exprs = args;
+    uint64_t val = car(exprs)->as.fixnum.value;
+
+    if (is_nil(cdr(exprs)))
+        return fixnum_create(-1 * val);
+
+    exprs = cdr(exprs);
+
+    while (!is_nil(exprs)) {
+        val -= car(exprs)->as.fixnum.value;
+        exprs = cdr(exprs);
+    }
+
+    return fixnum_create(val);
+}
+
 
 object_t *init_env(void) {
 
@@ -149,6 +179,11 @@ object_t *init_env(void) {
     env = extend(env, intern("if"), builtin_create_special(&zeme_fn_if));
     env = extend(env, intern("let"), builtin_create_special(&zeme_fn_let));
     env = extend(env, intern("begin"), builtin_create_special(&zeme_fn_begin));
+
+    // fixnum
+    env = extend(env, intern("fx+"), builtin_create(zeme_fn_fixnum_add));
+    env = extend(env, intern("fx-"), builtin_create(zeme_fn_fixnum_subtract));
+
 
     return env;
 }

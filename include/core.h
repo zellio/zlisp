@@ -53,6 +53,8 @@ object_t *init_env(void);
 // "type/character"
 
 // "type/fixnum"
+ZEME_FN(fixnum_add);
+ZEME_FN(fixnum_subtract);
 
 // "type/symbol"
 
