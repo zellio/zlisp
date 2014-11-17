@@ -148,9 +148,9 @@ lexeme_t *lex_str(char *str) {
 
         // TOKEN_FIXNUM,
         else if (is_digit(c) || ((c == '-' || c == '+') && is_digit(str[1]))) {
-            b[b_used++] = (c = *str++);
             while (is_digit(c)) {
-                b[b_used++] = (c = *str++);
+                b[b_used++] = c;
+                c = *str++;
                 if (b_used == b_size) {
                     size_t ns = b_size << 2;
                     char *nb = resizemem(b, b_size, ns);
@@ -158,8 +158,9 @@ lexeme_t *lex_str(char *str) {
                     b = nb;
                     b_size = ns;
                 }
-                current_lexeme->type = TOKEN_FIXNUM;
             }
+            str--;
+            current_lexeme->type = TOKEN_FIXNUM;
         }
 
         // TOKEN_SYMBOL
@@ -195,8 +196,7 @@ lexeme_t *lex_str(char *str) {
             break;
 
         if (current_lexeme->type == TOKEN_NONE) {
-            fprintf(stderr, "CRAP: <%c>\n", *str);
-            error("Well shit");
+            error("Error in lexer unknow token type");
         }
         if (b_used) {
             current_lexeme->value = calloc(1, b_used + 1);
