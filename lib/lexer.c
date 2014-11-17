@@ -49,6 +49,7 @@ lexeme_t *lex_str(char *str) {
 
     lexeme_t *lexemes = lexeme_create();
     lexeme_t *current_lexeme = lexemes;
+
     char c;
     while (1) {
         c = *str++;
@@ -147,7 +148,7 @@ lexeme_t *lex_str(char *str) {
         }
 
         // TOKEN_FIXNUM,
-        else if (is_digit(c) || ((c == '-' || c == '+') && is_digit(str[1]))) {
+        else if (is_digit(c) || ((c == '-' || c == '+') && is_digit(*str))) {
             while (is_digit(c)) {
                 b[b_used++] = c;
                 c = *str++;
