@@ -2,6 +2,7 @@
 #define __ZEME_CORE_H__ 1
 
 #include "types.h"
+#include "lexer.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -66,8 +67,6 @@ object_t *init_env(void);
 // "type/builtin"
 
 // "type/closure"
-
-int main(void);
 
 #ifdef __cplusplus
 };

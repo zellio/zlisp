@@ -153,7 +153,7 @@ object_t *init_env(void) {
     return env;
 }
 
-int main(void) {
+int test(void) {
     object_t *env = init_env();
 
     object_t *quote_stmt = cons(intern("quote"), cons(intern("foo"), nil));
@@ -200,7 +200,15 @@ int main(void) {
     fprintf(stdout, "%s\n", object_to_string(eval(begin_stmt, env)));
 
 
-    fprintf(stdout, "%s\n", object_to_string(env));
+    /* fprintf(stdout, "%s\n", object_to_string(env)); */
+
+    /* lexeme_t *tokens = lex_str("((lambda (x y) (quote (x . y))) 1 2)"); */
+
+    /* lex_dump_tokens(tokens); */
+
+    /* object_t *ast = parse(tokens); */
+
+    /* fprintf(stdout, "%s\n", object_to_string(ast)); */
 
     return 0;
 }
