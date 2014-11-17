@@ -33,6 +33,7 @@ object_t *apply(object_t *proc, object_t *vals, object_t *env);
 
 #define ZEME_FN(label) object_t *zeme_fn_ ## label(object_t *args, object_t* env)
 
+// core
 ZEME_FN(quote);
 ZEME_FN(cons);
 ZEME_FN(car);
@@ -40,11 +41,6 @@ ZEME_FN(cdr);
 ZEME_FN(if);
 ZEME_FN(let);
 ZEME_FN(begin);
-
-// ZEME_FN(if);
-// ZEME_FN(quote);
-
-object_t *init_env(void);
 
 // "type/object"
 
@@ -69,6 +65,8 @@ ZEME_FN(fixnum_subtract);
 // "type/builtin"
 
 // "type/closure"
+
+object_t *init_env(void);
 
 #ifdef __cplusplus
 };

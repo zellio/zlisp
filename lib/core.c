@@ -77,7 +77,19 @@ object_t *apply(object_t *proc, object_t *vals, object_t *env) {
     case SCHEME_TYPE_BUILTIN:
         return (*proc->as.builtin.fn)(vals, env);
     case SCHEME_TYPE_CLOSURE:
-        return proc;
+        {
+            object_t *parameters = proc->as.closure.parameters;
+            object_t *body = proc->as.closure.body;
+            object_t *env = proc->as.closure.env;
+
+            while (!is_nil(parameters)) {
+                env = extend(env, car(parameters), car(vals));
+                parameters = cdr(parameters);
+                vals = cdr(vals);
+            }
+
+            return eval(body, env);
+        }
     default:
         return NULL;
     }
@@ -129,6 +141,20 @@ ZEME_FN(begin) {
     }
     return eval(car(exprs), env);
 }
+
+ZEME_FN(lambda) {
+    object_t *params = car(args);
+    object_t *body = cdr(args);
+
+    if (!is_nil(cdr(body)))
+        body = cons(intern("begin"), body);
+    else
+        body = car(body);
+
+    return closure_create(params, body, env);
+}
+
+
 // fixnum
 ZEME_FN(fixnum_add) {
     uint64_t val = 0;
@@ -179,6 +205,7 @@ object_t *init_env(void) {
     env = extend(env, intern("if"), builtin_create_special(&zeme_fn_if));
     env = extend(env, intern("let"), builtin_create_special(&zeme_fn_let));
     env = extend(env, intern("begin"), builtin_create_special(&zeme_fn_begin));
+    env = extend(env, intern("lambda"), builtin_create_special(&zeme_fn_lambda));
 
     // fixnum
     env = extend(env, intern("fx+"), builtin_create(zeme_fn_fixnum_add));
