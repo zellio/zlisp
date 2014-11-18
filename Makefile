@@ -25,7 +25,7 @@ YACC_OBJS := $(patsubst %.y,%.c,${YACC_SRCS}) $(patsubst %.y,%.h,${YACC_SRCS})
 SRCS    := $(shell find $(SRCDIR) -name '*.$(SRCEXT)')
 SRCDIRS := $(shell find . -name '*.$(SRCEXT)' -exec dirname {} \; | uniq)
 
-OBJS    := $(patsubst $(SRCDIR)%.l,$(OBJDIR)%.o,$(LEX_SRCS))\
+OBJS    := $(patsubst $(SRCDIR)%.$(SRCEXT),$(OBJDIR)%.o,$(SRCS))\
 	$(patsubst $(SRCDIR)%.l,$(OBJDIR)%.o,$(LEX_SRCS))\
 	$(patsubst $(SRCDIR)%.y,$(OBJDIR)%.o,$(YACC_SRCS))
 
@@ -35,7 +35,7 @@ OBJDIRS := $(subst $(SRCDIR),$(OBJDIR),$(SRCDIRS))
 
 all: $(BINDIR)/$(APP)
 
-$(BINDIR)/$(APP): buildrepo $(LEX_OBJS) $(YACC_OBJS) $(OBJS)
+$(BINDIR)/$(APP): buildrepo $(OBJS)
 	@mkdir -p `dirname $(@)`
 	@echo "Linking $(@) ... "
 	@$(CC) $(OBJS) $(LDFLAGS) -o $(@)
