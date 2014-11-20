@@ -1,5 +1,5 @@
-#ifndef __ZLISP_OBJECT_H__
-#define __ZLISP_OBJECT_H__ 1
+#ifndef __ZL_LANG_TYPE_OBJECT_H__
+#define __ZL_LANG_TYPE_OBJECT_H__ 1
 
 #include <stddef.h>
 #include <stdint.h>
@@ -17,18 +17,18 @@ extern "C" {
 #define IS_TYPE(x, type) (TYPE(x) == (type))
 
 typedef enum {
-    SCHEME_TYPE_NIL,
-    SCHEME_TYPE_TRUE,
-    SCHEME_TYPE_FALSE,
-    SCHEME_TYPE_CHARACTER,
-    SCHEME_TYPE_FIXNUM,
-    SCHEME_TYPE_SYMBOL,
-    SCHEME_TYPE_PAIR,
-    SCHEME_TYPE_STRING,
-    SCHEME_TYPE_VECTOR,
-    SCHEME_TYPE_PORT,
-    SCHEME_TYPE_BUILTIN,
-    SCHEME_TYPE_CLOSURE
+    TYPE_NIL,
+    TYPE_TRUE,
+    TYPE_FALSE,
+    TYPE_CHARACTER,
+    TYPE_FIXNUM,
+    TYPE_SYMBOL,
+    TYPE_PAIR,
+    TYPE_STRING,
+    TYPE_VECTOR,
+    TYPE_PORT,
+    TYPE_BUILTIN,
+    TYPE_CLOSURE
 } object_type;
 
 typedef struct object object_t;
@@ -40,52 +40,52 @@ struct object {
     char *(*to_string)(object_t *self);
 
     union {
-        /* SCHEME_TYPE_CHARACTER, */
+        /* TYPE_CHARACTER, */
         struct {
             char value;
         } character;
 
-        /* SCHEME_TYPE_FIXNUM, */
+        /* TYPE_FIXNUM, */
         struct {
             int64_t value;
         } fixnum;
 
-        /* SCHEME_TYPE_SYMBOL, */
+        /* TYPE_SYMBOL, */
         struct {
             uint64_t hash;
             char *value;
         } symbol;
 
-        /* SCHEME_TYPE_PAIR, */
+        /* TYPE_PAIR, */
         struct {
             object_t *car;
             object_t *cdr;
         } pair;
 
-        /* SCHEME_TYPE_STRING, */
+        /* TYPE_STRING, */
         struct {
             size_t length;
             char *value;
         } string;
 
-        /* SCHEME_TYPE_VECTOR, */
+        /* TYPE_VECTOR, */
         struct {
             size_t length;
             object_t **value;
         } vector;
 
-        /* SCHEME_TYPE_PORT, */
+        /* TYPE_PORT, */
         struct {
             FILE *value;
         } port;
 
-        /* SCHEME_TYPE_BUILTIN, */
+        /* TYPE_BUILTIN, */
         struct {
             int special;
             object_t *(*fn)(object_t *arguments, object_t *env);
         } builtin;
 
-        /* SCHEME_TYPE_CLOSURE */
+        /* TYPE_CLOSURE */
         struct {
             object_t *parameters;
             object_t *body;

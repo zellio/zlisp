@@ -1,5 +1,5 @@
 %{
-#include "object.h"
+#include "lang.h"
 #include "parser.h"
 
 #define TOKEN(type) (yylval->token = (type))

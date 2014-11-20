@@ -1,4 +1,4 @@
-#include "object.h"
+#include "lang/type/object.h"
 
 void error(char *message)
 {
