@@ -9,5 +9,6 @@
 #include "lang/type/fixnum.h"
 #include "lang/type/symbol.h"
 #include "lang/type/pair.h"
+#include "lang/type/string.h"
 
 #endif
