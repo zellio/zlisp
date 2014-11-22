@@ -3,5 +3,6 @@
 
 #include "lang/type/object.h"
 #include "lang/type/nil.h"
+#include "lang/type/true.h"
 
 #endif
