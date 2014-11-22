@@ -1,7 +1,7 @@
 #ifndef __ZL_LANG_TYPE_TRUE_H__
 #define __ZL_LANG_TYPE_TRUE_H__ 1
 
-#include "type/object.h"
+#include "lang/type/object.h"
 
 #ifdef __cplusplus
 extern "C" {
