@@ -8,6 +8,6 @@
 #include "lang/type/character.h"
 #include "lang/type/fixnum.h"
 #include "lang/type/symbol.h"
-
+#include "lang/type/pair.h"
 
 #endif
