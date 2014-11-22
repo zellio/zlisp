@@ -6,5 +6,6 @@
 #include "lang/type/true.h"
 #include "lang/type/false.h"
 #include "lang/type/character.h"
+#include "lang/type/fixnum.h"
 
 #endif
