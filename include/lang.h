@@ -5,5 +5,6 @@
 #include "lang/type/nil.h"
 #include "lang/type/true.h"
 #include "lang/type/false.h"
+#include "lang/type/character.h"
 
 #endif
