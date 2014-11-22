@@ -18,11 +18,11 @@ object_t *symbol_create(char *value)
         error("Out of memory error in `symbol_create`");
 
     size_t size = strlen(value);
-    obj->as.symbol.value = strndup(value, size);
-    if (obj->as.symbol.value == NULL)
+    obj->symbol.value = strndup(value, size);
+    if (obj->symbol.value == NULL)
         error("Memory allocation error in `symbol_create'");
 
-    obj->as.symbol.hash = symbol_hash_fn(value);
+    obj->symbol.hash = symbol_hash_fn(value);
 
     obj->comperator = &symbol_comperator;
     obj->destructor = &symbol_destructor;
@@ -33,21 +33,21 @@ object_t *symbol_create(char *value)
 
 int symbol_destructor(object_t *self)
 {
-    if (self->as.symbol.value == NULL)
+    if (self->symbol.value == NULL)
         return -1;
 
-    free(self->as.symbol.value);
+    free(self->symbol.value);
 
     return 0;
 }
 
 int symbol_comperator(object_t *self, object_t *other)
 {
-    return self->as.symbol.hash - other->as.symbol.hash;
+    return self->symbol.hash - other->symbol.hash;
 }
 
 char *symbol_to_string(object_t *self)
 {
-    char *str = strdup(self->as.symbol.value);
+    char *str = strdup(self->symbol.value);
     return str;
 }

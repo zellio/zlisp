@@ -41,15 +41,12 @@ struct object {
     char *(*to_string)(object_t *self);
 
     union {
+
         /* TYPE_CHARACTER, */
-        struct {
-            char value;
-        } character;
+        char character;
 
         /* TYPE_FIXNUM, */
-        struct {
-            int64_t value;
-        } fixnum;
+        int64_t fixnum;
 
         /* TYPE_SYMBOL, */
         struct {
@@ -92,7 +89,7 @@ struct object {
             object_t *body;
             object_t *env;
         } closure;
-    } as;
+    };
 };
 
 void error(char *message);

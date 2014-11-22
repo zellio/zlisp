@@ -6,7 +6,7 @@ object_t *character_create(char value)
     if (obj == NULL)
         error("Out of memeory error in `character_create`");
 
-    obj->as.character.value = value;
+    obj->character = value;
 
     obj->comperator = &character_comperator;
     obj->to_string = &character_to_string;
@@ -16,7 +16,7 @@ object_t *character_create(char value)
 
 int character_comperator(object_t *self, object_t *other)
 {
-    return self->as.character.value - other->as.character.value;
+    return self->character - other->character;
 }
 
 char *character_to_string(object_t *self)
@@ -25,6 +25,6 @@ char *character_to_string(object_t *self)
     if (str == NULL)
         error("Out of memory error in `character_to_string`");
 
-    snprintf(str, 3, "#\\%c", self->as.character.value);
+    snprintf(str, 3, "#\\%c", self->character);
     return str;
 }

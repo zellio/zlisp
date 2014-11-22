@@ -8,7 +8,7 @@ object_t *fixnum_create(int64_t value)
     if (obj == NULL)
         error("Out of memory error in `fixnum_create`");
 
-    obj->as.fixnum.value = value;
+    obj->fixnum = value;
 
     obj->comperator = &fixnum_comperator;
     obj->to_string = &fixnum_to_string;
@@ -18,7 +18,7 @@ object_t *fixnum_create(int64_t value)
 
 int fixnum_comperator(object_t *self, object_t *other)
 {
-    return self->as.fixnum.value - other->as.fixnum.value;
+    return self->fixnum - other->fixnum;
 }
 
 #define cint_to_char(x) ((x) + 0x30)
@@ -26,7 +26,7 @@ int fixnum_comperator(object_t *self, object_t *other)
 char *fixnum_to_string(object_t *self)
 {
     size_t length = 0;
-    int64_t value = self->as.fixnum.value;
+    int64_t value = self->fixnum;
     uint8_t is_negative = (value < 0);
 
     length += (size_t)(floor(log10(labs(value))) + 1);

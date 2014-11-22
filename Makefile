@@ -7,7 +7,7 @@ LEX=flex
 YACC=bison
 YFLAGS=
 
-CFLAGS=-ggdb -x c --std=c99 -D_POSIX_C_SOURCE=200809L -c -Wall -Wextra -pedantic -ferror-limit=1
+CFLAGS=-ggdb -x c --std=c11 -D_POSIX_C_SOURCE=200809L -c -Wall -Wextra -pedantic -ferror-limit=1
 LDFLAGS=-lm
 
 SRCEXT=c
