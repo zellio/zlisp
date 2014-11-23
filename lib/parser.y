@@ -26,46 +26,42 @@ object_t *root;
     uint64_t fixnum;
     double real;
     uint64_t token;
+    object_t *obj;
 }
 
-%token  <str>     TOKEN_COMMENT
-%token  <token>   TOKEN_L_PAREN
-%token  <token>   TOKEN_R_PAREN
-%token  <token>   TOKEN_DOT
-%token  <token>   TOKEN_QUOTE
-%token  <token>   TOKEN_BACK_QUOTE
-%token  <str>     TOKEN_SYMBOL
-%token  <str>     TOKEN_STRING
+%token  <token>   TOKEN_L_PAREN TOKEN_R_PAREN TOKEN_DOT TOKEN_QUOTE
+%token  <token>   TOKEN_BACK_QUOTE TOKEN_WHITESPACE
+%token  <str>     TOKEN_COMMENT TOKEN_CHARACTER TOKEN_SYMBOL TOKEN_STRING
 %token  <fixnum>  TOKEN_FIXNUM
 %token  <real>    TOKEN_REAL
-%token  <str>     TOKEN_CHARACTER
-%token  <token>   TOKEN_WHITESPACE
+
+%type   <obj>     exprs expr list atom
 
 %start program
 
 %%
 
 program:        /* empty */
-        |       exprs
+        |       exprs       { root = $1; }
         ;
 
-exprs:          expr
-        |       exprs expr
+exprs:          expr        { $$ = $1; }
+        |       exprs expr  { $$ = pair_create($1, $2); }
         ;
 
 expr:           atom
-        |       TOKEN_L_PAREN expr TOKEN_DOT expr TOKEN_R_PAREN
+        |       TOKEN_L_PAREN expr TOKEN_DOT expr TOKEN_R_PAREN { $$ = pair_create($2, $4); }
         |       list
         ;
 
-list:           TOKEN_L_PAREN exprs TOKEN_R_PAREN
+list:           TOKEN_L_PAREN exprs TOKEN_R_PAREN { $$ = $2; }
         ;
 
-atom:           TOKEN_SYMBOL
-        |       TOKEN_STRING
-        |       TOKEN_FIXNUM
-        |       TOKEN_REAL
-        |       TOKEN_CHARACTER
+atom:           TOKEN_SYMBOL     { $$ = symbol_create($1); free($1); }
+        |       TOKEN_STRING     { $$ = string_create($1); free($1); }
+        |       TOKEN_FIXNUM     { $$ = fixnum_create($1); }
+        |       TOKEN_REAL       { $$ = real_create($1); }
+        |       TOKEN_CHARACTER  { $$ = character_create($1[2]); free($1); }
         ;
 
 %%
