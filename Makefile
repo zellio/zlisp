@@ -25,9 +25,9 @@ YACC_OBJS := $(patsubst %.y,%.c,${YACC_SRCS}) $(patsubst %.y,%.h,${YACC_SRCS})
 SRCS    := $(shell find $(SRCDIR) -name '*.$(SRCEXT)')
 SRCDIRS := $(shell find . -name '*.$(SRCEXT)' -exec dirname {} \; | uniq)
 
-OBJS    := $(patsubst $(SRCDIR)%.$(SRCEXT),$(OBJDIR)%.o,$(SRCS))\
-	$(patsubst $(SRCDIR)%.l,$(OBJDIR)%.o,$(LEX_SRCS))\
-	$(patsubst $(SRCDIR)%.y,$(OBJDIR)%.o,$(YACC_SRCS))
+OBJS    := $(patsubst $(SRCDIR)%.l,$(OBJDIR)%.o,$(LEX_SRCS))\
+	$(patsubst $(SRCDIR)%.y,$(OBJDIR)%.o,$(YACC_SRCS))\
+	$(patsubst $(SRCDIR)%.$(SRCEXT),$(OBJDIR)%.o,$(SRCS))
 
 OBJDIRS := $(subst $(SRCDIR),$(OBJDIR),$(SRCDIRS))
 
