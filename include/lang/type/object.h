@@ -23,6 +23,7 @@ typedef enum {
     TYPE_FALSE,
     TYPE_CHARACTER,
     TYPE_FIXNUM,
+    TYPE_REAL,
     TYPE_SYMBOL,
     TYPE_PAIR,
     TYPE_STRING,
@@ -47,6 +48,9 @@ struct object {
 
         /* TYPE_FIXNUM, */
         int64_t fixnum;
+
+        /* TYPE_REAL, */
+        double real;
 
         /* TYPE_SYMBOL, */
         struct {
