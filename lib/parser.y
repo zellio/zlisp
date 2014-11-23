@@ -45,7 +45,7 @@ program:        /* empty */
         |       exprs       { root = $1; }
         ;
 
-exprs:          expr        { $$ = $1; }
+exprs:          expr
         |       exprs expr  { $$ = pair_create($1, $2); }
         ;
 
