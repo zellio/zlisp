@@ -12,5 +12,6 @@
 #include "lang/type/string.h"
 #include "lang/type/vector.h"
 #include "lang/type/port.h"
+#include "lang/type/builtin.h"
 
 #endif
