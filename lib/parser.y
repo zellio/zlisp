@@ -35,34 +35,36 @@ object_t *root;
 %token  <fixnum>  TOKEN_FIXNUM
 %token  <real>    TOKEN_REAL
 
-%type   <obj>     exprs expr list atom
+%type   <obj>     exprs expr list lrest atom
 
 %start program
 
 %%
 
-program:        /* empty */
-        |       exprs       { root = $1; }
-        ;
+program: exprs { root = $1; };
 
 exprs:          expr
-        |       exprs expr  { $$ = pair_create($1, $2); }
-        ;
+        |       exprs expr { $$ = pair_create($1, $2); }
+;
 
 expr:           atom
-        |       TOKEN_L_PAREN expr TOKEN_DOT expr TOKEN_R_PAREN { $$ = pair_create($2, $4); }
+        |       TOKEN_L_PAREN expr TOKEN_DOT expr TOKEN_R_PAREN { $$ = pair_create($1, $2); }
         |       list
-        ;
+;
 
-list:           TOKEN_L_PAREN exprs TOKEN_R_PAREN { $$ = $2; }
-        ;
+list:           TOKEN_L_PAREN lrest { $$ = $1; }
+;
+
+lrest:          TOKEN_R_PAREN { $$ = nil_create(); }
+        |       exprs TOKEN_R_PAREN { $$ = pair_create($1, nil_create()); }
+;
 
 atom:           TOKEN_SYMBOL     { $$ = symbol_create($1); free($1); }
         |       TOKEN_STRING     { $$ = string_create($1); free($1); }
         |       TOKEN_FIXNUM     { $$ = fixnum_create($1); }
         |       TOKEN_REAL       { $$ = real_create($1); }
         |       TOKEN_CHARACTER  { $$ = character_create($1[2]); free($1); }
-        ;
+;
 
 %%
 
