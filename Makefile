@@ -63,7 +63,7 @@ define make-repo
 endef
 
 clean:
-	$(RM) -fr $(OBJDIR) $(LEX_OBJS) $(YACC_OBJS)
+	$(RM) -rf $(OBJDIR) $(LEX_OBJS) $(YACC_OBJS)
 
 distclean: clean
-	$(RM) -fr $(BINDIR)
+	$(RM) -rf $(BINDIR)
