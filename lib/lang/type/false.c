@@ -17,7 +17,6 @@ object_t *false_create(void)
 
 char *false_to_string(object_t *self)
 {
-    char *str = calloc(4, 1);
-    strncpy(str, "false", 3);
+    char *str = strndup("false", 5);
     return str;
 }

@@ -2,22 +2,20 @@
 
 object_t *nil_create(void)
 {
-	static object_t *nil = NULL;
+    static object_t *nil = NULL;
+    if (nil == NULL) {
+        nil = object_create(TYPE_NIL);
+        if (nil == NULL)
+            error("Out of memeory error in `create_nil`");
 
-	if (nil == NULL) {
-		nil = object_create(TYPE_NIL);
-		if (nil == NULL)
-			error("Out of memeory error in `create_nil`");
+        nil->to_string = &nil_to_string;
+    }
 
-		nil->to_string = &nil_to_string;
-	}
-
-	return nil;
+    return nil;
 }
 
 char *nil_to_string(object_t *self)
 {
-	char *str = calloc(4, 1);
-	strncpy(str, "nil", 3);
-	return str;
+    char *str = strndup("nil", 3);
+    return str;
 }

@@ -17,7 +17,6 @@ object_t *true_create(void)
 
 char *true_to_string(object_t *self)
 {
-    char *str = calloc(4, 1);
-    strncpy(str, "true", 3);
+    char *str = strndup("true", 4);
     return str;
 }

@@ -55,6 +55,6 @@ int string_comperator(object_t *self, object_t *other)
 
 char *string_to_string(object_t *self)
 {
-    char *str = strdup(self->string.value);
+    char *str = strndup(self->string.value, self->string.length);
     return str;
 }

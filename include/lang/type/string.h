@@ -18,9 +18,6 @@ int string_destructor(object_t *self);
 int string_comperator(object_t *self, object_t *other);
 char *string_to_string(object_t *self);
 
-char string_get_index(object_t *self, size_t index);
-object_t *string_set_index(object_t *self, size_t index, char character);
-
 #ifdef __cplusplus
 };
 #endif
