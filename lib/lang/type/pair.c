@@ -77,3 +77,15 @@ char *_pair_to_string(object_t *self, uint8_t in_list)
 char *pair_to_string(object_t *self) {
     return _pair_to_string(self, 0);
 }
+
+object_t *pair_set_car(object_t *self, object_t *car)
+{
+    self->pair.car = car;
+    return self;
+}
+
+object_t *pair_set_cdr(object_t *self, object_t *cdr)
+{
+    self->pair.cdr = cdr;
+    return self;
+}
