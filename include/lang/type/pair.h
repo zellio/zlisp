@@ -28,7 +28,6 @@ char *pair_to_string(object_t *self);
 object_t *pair_set_car(object_t *self, object_t *car);
 object_t *pair_set_cdr(object_t *self, object_t *cdr);
 
-
 #ifdef __cplusplus
 };
 #endif
