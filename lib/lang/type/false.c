@@ -1,5 +1,12 @@
 #include "lang/type/false.h"
 
+object_t *ZLC_FALSE = &(object_t) {
+    .type = TYPE_FALSE,
+    .comperator = NULL,
+    .destructor = NULL,
+    .to_string = &false_to_string
+};
+
 object_t *false_create(void)
 {
     return ZLC_FALSE;

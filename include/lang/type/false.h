@@ -10,19 +10,13 @@ extern "C" {
 }
 #endif
 
+object_t *ZLC_FALSE;
+
 object_t *false_create(void);
 
 #define is_false(x) (IS_TYPE((x), TYPE_FALSE))
 
 char *false_to_string(object_t *self);
-
-object_t *ZLC_FALSE = &(object_t) {
-    .type = TYPE_FALSE,
-    .comperator = NULL,
-    .destructor = NULL,
-    .to_string = &false_to_string
-};
-
 
 #ifdef __cplusplus
 };
