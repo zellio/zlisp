@@ -16,6 +16,14 @@ object_t *false_create(void);
 
 char *false_to_string(object_t *self);
 
+object_t *ZLC_FALSE = &(object_t) {
+    .type = TYPE_FALSE,
+    .comperator = NULL,
+    .destructor = NULL,
+    .to_string = &false_to_string
+};
+
+
 #ifdef __cplusplus
 };
 #endif

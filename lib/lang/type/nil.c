@@ -2,16 +2,7 @@
 
 object_t *nil_create(void)
 {
-    static object_t *nil = NULL;
-    if (nil == NULL) {
-        nil = object_create(TYPE_NIL);
-        if (nil == NULL)
-            error("Out of memeory error in `create_nil`");
-
-        nil->to_string = &nil_to_string;
-    }
-
-    return nil;
+    return ZLC_NIL;
 }
 
 char *nil_to_string(object_t *self)

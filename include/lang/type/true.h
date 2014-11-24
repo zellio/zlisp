@@ -16,6 +16,13 @@ object_t *true_create(void);
 
 char *true_to_string(object_t *self);
 
+object_t *ZLC_TRUE = &(object_t) {
+    .type = TYPE_TRUE,
+    .comperator = NULL,
+    .destructor = NULL,
+    .to_string = &true_to_string
+};
+
 #ifdef __cplusplus
 };
 #endif
