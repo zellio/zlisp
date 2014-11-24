@@ -10,7 +10,6 @@ extern "C" {
 }
 #endif
 
-
 object_t *zlc_eq(object_t *obj1, object_t *obj2);
 
 object_t *zlc_assoc(object_t *key, object_t *alist);
