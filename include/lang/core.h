@@ -13,6 +13,7 @@ extern "C" {
 object_t *zlc_eq(object_t *obj1, object_t *obj2);
 
 object_t *zlc_assoc(object_t *key, object_t *alist);
+object_t *zlc_acons(object_t *key, object_t *val, object_t *alist);
 
 #ifdef __cplusplus
 };
