@@ -11,6 +11,7 @@ extern "C" {
 #endif
 
 object_t *builtin_create(object_t *(*fn)(object_t *args, object_t *env));
+object_t *builtin_create_s(object_t *(*fn)(object_t *args, object_t *env));
 
 #define is_builtin(x) (IS_TYPE((x), TYPE_BUILTIN))
 

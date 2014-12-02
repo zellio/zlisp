@@ -1,6 +1,6 @@
 #include "interpreter.h"
 
-object_t *SYM_LIST = &(object_t) { .type = TYPE_NIL };
+object_t *SYM_LIST;
 
 object_t *intern(char *label)
 {
@@ -39,6 +39,8 @@ object_t *eval(object_t *expr, object_t *env)
     }
     case TYPE_PAIR: {
         object_t *operator = eval(pair_car(expr), env);
+        if (is_builtin(operator) && operator->builtin.special)
+            return apply(operator, pair_cdr(expr), env);
         return apply(operator, evlist(pair_cdr(expr), env), env);
     }
     }
@@ -73,4 +75,53 @@ object_t *apply(object_t *proc, object_t *vals, object_t *env)
         error("Proc value cannot be applied");
         return NULL;
     }
+}
+
+#define ZLI_FN(label) object_t *zli_ ## label(object_t *args, object_t *env)
+
+ZLI_FN(quote)
+{
+    return pair_car(args);
+}
+
+ZLI_FN(cons)
+{
+    return pair_create(pair_car(args), pair_cadr(args));
+}
+
+ZLI_FN(car)
+{
+    return pair_caar(args);
+}
+
+ZLI_FN(cdr)
+{
+    return pair_cdar(args);
+}
+
+ZLI_FN(if)
+{
+    if (is_false(eval(pair_car(args), env)))
+        return eval(pair_caddr(args), env);
+    return eval(pair_cadr(args), env);
+}
+
+ZLI_FN(let)
+{
+    object_t *bindings = pair_car(args);
+    object_t *body = pair_cadr(args);
+
+    for (object_t **b = &bindings; is_pair(*b); b = &pair_cdr(*b))
+        env = zlc_acons(pair_caar(*b), eval(pair_cadar(bindings) ,env), env);
+
+    return eval(body, env);
+}
+
+ZLI_FN(begin)
+{
+    object_t **e = &args;
+    for (; !is_nil(pair_cdr(*e)); e = &pair_cdr(*e))
+        eval(pair_car(*e), env);
+
+    return eval(pair_cdr(*e), env);
 }

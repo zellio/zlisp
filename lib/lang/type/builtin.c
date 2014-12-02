@@ -13,6 +13,14 @@ object_t *builtin_create(object_t *(*fn)(object_t *args, object_t *env))
     return obj;
 }
 
+object_t *builtin_create_s(object_t *(*fn)(object_t *args, object_t *env))
+{
+    object_t *obj = builtin_create(fn);
+    obj->builtin.special = 1;
+
+    return obj;
+}
+
 char *builtin_to_string(object_t *self)
 {
     return typed_pointer_to_string("Builtin", 7, self);
