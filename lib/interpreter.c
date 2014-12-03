@@ -164,88 +164,54 @@ object_t *init_env(void)
     return env;
 }
 
+int test_parser(char *str)
+{
+    object_t *ast = NULL;
+    zlisp_parse(str, &ast);
+    printf("%s parses as %s\n", str, object_to_string(ast));
+    return 0;
+}
+
+int test_eval(char *str)
+{
+    object_t *ast = NULL;
+    zlisp_parse(str, &ast);
+    printf("%s evals to %s\n", str, object_to_string(eval(ast, init_env())));
+    return 0;
+}
+
 int main(void)
 {
     object_t *env = init_env();
-    object_t *ast = NULL;
 
     printf("*** Testing parser ***\n");
-
-    zlisp_parse("asdf", &ast);
-    printf("asdf parses as %s\n", object_to_string(ast));
-
-    zlisp_parse("\"ASDF\"", &ast);
-    printf("\"ASDF\" parses as %s\n", object_to_string(ast));
-
-    zlisp_parse("-1234", &ast);
-    printf("-1234 parses as %s\n", object_to_string(ast));
-
-    zlisp_parse("-1432.2523", &ast);
-    printf("-1432.2523 parses as %s\n", object_to_string(ast));
-
-    zlisp_parse("()", &ast);
-    printf("() parses as %s\n", object_to_string(ast));
-
-    zlisp_parse("(a . b)", &ast);
-    printf("(a . b) parses as %s\n", object_to_string(ast));
-
-    zlisp_parse("((a) . (b))", &ast);
-    printf("((a) . (b)) parses as %s\n", object_to_string(ast));
-
-    zlisp_parse("(a b c)", &ast);
-    printf("(a b c) parses as %s\n", object_to_string(ast));
-
-    zlisp_parse("(a (a b (a b c)) ((a b) . c))", &ast);
-    printf("(a (a b (a b c)) ((a b) . c)) parses as %s\n", object_to_string(ast));
+    test_parser("asdf");
+    test_parser("\"ASDF\"");
+    test_parser("-1234");
+    test_parser("-1432.2523");
+    test_parser("()");
+    test_parser("(a . b)");
+    test_parser("((a) . (b))");
+    test_parser("(a b c)");
+    test_parser("(a (a b (a b c)) ((a b) . c))");
 
     printf("\n");
+
     printf("*** Testing interpreter ***\n");
-
-    zlisp_parse("nil", &ast);
-    printf("nil evals to %s\n", object_to_string(eval(ast, env)));
-
-    zlisp_parse("#t", &ast);
-    printf("#t evals to %s\n", object_to_string(eval(ast, env)));
-
-    zlisp_parse("#f", &ast);
-    printf("#f evals to %s\n", object_to_string(eval(ast, env)));
-
-    zlisp_parse("-1334", &ast);
-    printf("-1334 evals to %s\n", object_to_string(eval(ast, env)));
-
-    zlisp_parse("-1334.2425", &ast);
-    printf("-1334.2425 evals to %s\n", object_to_string(eval(ast, env)));
-
-    zlisp_parse("(quote a)", &ast);
-    printf("(quote a) evals to %s\n", object_to_string(eval(ast, env)));
-
-    zlisp_parse("(cons 1 2)", &ast);
-    printf("(cons 1 2) evals to %s\n", object_to_string(eval(ast, env)));
-
-    zlisp_parse("(if #t 1 2)", &ast);
-    printf("(if #t 1 2) evals to %s\n", object_to_string(eval(ast, env)));
-
-    zlisp_parse("(if #f 1 2)", &ast);
-    printf("(if #f 1 2) evals to %s\n", object_to_string(eval(ast, env)));
-
-    zlisp_parse("(let ((x 1)) (cons x x))", &ast);
-    printf("(let ((x 1)) (cons x x)) evals to %s\n", object_to_string(eval(ast, env)));
-
-    zlisp_parse("(begin (cons 1 2) (cons 2 3))", &ast);
-    printf("(begin (cons 1 2) (cons 2 3)) evals to %s\n", object_to_string(eval(ast, env)));
-
-    zlisp_parse("((lambda (x y) (cons x y)) 1 2)", &ast);
-    printf("((lambda (x y) (cons x y)) 1 2) evals to %s\n", object_to_string(eval(ast, env)));
-
-    zlisp_parse("((lambda (x y) (cons x y)) 1 2)", &ast);
-    printf("((lambda (x y) (cons x y)) 1 2) evals to %s\n", object_to_string(eval(ast, env)));
-
-    zlisp_parse("((let ((x 1)) (lambda (y) (cons x y))) 2)", &ast);
-    printf("((let ((x 1)) (lambda (y) (cons x y))) 2) evals to %s\n", object_to_string(eval(ast, env)));
-
-
-    env = zlc_acons(intern("lambda"), builtin_create_s(&zli_lambda), env);
-
+    test_eval("nil");
+    test_eval("#t");
+    test_eval("#f");
+    test_eval("-1334");
+    test_eval("-1334.2425");
+    test_eval("(quote a)");
+    test_eval("(cons 1 2)");
+    test_eval("(if #t 1 2)");
+    test_eval("(if #f 1 2)");
+    test_eval("(let ((x 1)) (cons x x))");
+    test_eval("(begin (cons 1 2) (cons 2 3))");
+    test_eval("((lambda (x y) (cons x y)) 1 2)");
+    test_eval("((lambda (x y) (cons x y)) 1 2)");
+    test_eval("((let ((x 1)) (lambda (y) (cons x y))) 2)");
 
     return 0;
 }
