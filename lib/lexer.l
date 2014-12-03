@@ -5,6 +5,8 @@
 #define TOKEN(type) (yylval->token = (type))
 
 #include <string.h>
+
+#define YYDEBUG 1
 %}
 
 %option noyywrap
@@ -24,5 +26,5 @@
 [+-]?[0-9]+                               { yylval->fixnum = atof(yytext); return TOKEN_FIXNUM; }
 [+-]?[0-9]+\.[0-9]+                       { yylval->real = atof(yytext); return TOKEN_REAL; }
 (\|([^|]|\\\|)*\||[^();\"\'`|\0 \n\r\t]+) { yylval->str = strndup(yytext, yyleng); return TOKEN_SYMBOL; }
-[ \n\r\t]+                                { return TOKEN(TOKEN_WHITESPACE); }
+[ \n\r\t]+                                /* IGNORE TOKEN_WHITESPACE */
 .                                         { printf("Unknown token!"); yyterminate(); }
