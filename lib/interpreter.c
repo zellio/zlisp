@@ -216,7 +216,32 @@ int test(void)
 
 int main(void)
 {
-    test();
+
+    fprintf(stdout, "Zlisp 0.1.0\n");
+    fprintf(stdout, "Copyright (C) 2014 Zachary Elliott\n\n");
+    fprintf(stdout, "Zlisp is a toy implementation of scheme.\n");
+
+    size_t buffer_size = 1024L;
+    char *buffer = calloc(buffer_size, 1);
+
+    object_t *ast = NULL, *result = NULL, *env = init_env();
+
+    while (1) {
+        fprintf(stdout, "* ");
+
+        fgets(buffer, buffer_size - 1, stdin);
+
+        zlisp_parse(buffer, &ast);
+
+        if (ast != NULL) {
+            object_t *result = eval(ast, env);
+            fprintf(stdout, "%s\n\n", object_to_string(result));
+        }
+
+        memset(buffer, '\0', buffer_size);
+    }
+
+    free(buffer);
 
     return 0;
 }
