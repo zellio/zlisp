@@ -4,7 +4,11 @@ object_t *ZLC_NIL = &(object_t) {
     .type = TYPE_NIL,
     .comperator = NULL,
     .destructor = NULL,
-    .to_string = &nil_to_string
+    .to_string = &nil_to_string,
+    .symbol = {
+        .hash = 0,
+        .value = "nil"
+    }
 };
 
 object_t *nil_create(void)
