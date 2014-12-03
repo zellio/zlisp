@@ -14,8 +14,8 @@ object_t *zlc_assoc(object_t *key, object_t *alist)
         error("Type error in `zlc_assoc'");
 
     for (object_t **node = &alist; is_pair(*node); node = &pair_cdr(*node))
-        if (is_pair(*node) && object_compare(pair_car(*node), key) == 0)
-            return *node;
+        if (is_pair(*node) && object_compare(pair_caar(*node), key) == 0)
+            return pair_car(*node);
 
     return ZLC_NIL;
 }
