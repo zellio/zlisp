@@ -2,6 +2,7 @@
 #define __ZL_INTERPRETER_H__ 1
 
 #include "lang.h"
+#include "parser.h"
 
 #ifdef __cplusplus
 extern "C" {
