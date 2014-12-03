@@ -180,10 +180,8 @@ int test_eval(char *str)
     return 0;
 }
 
-int main(void)
+int test(void)
 {
-    object_t *env = init_env();
-
     printf("*** Testing parser ***\n");
     test_parser("asdf");
     test_parser("\"ASDF\"");
@@ -212,6 +210,13 @@ int main(void)
     test_eval("((lambda (x y) (cons x y)) 1 2)");
     test_eval("((lambda (x y) (cons x y)) 1 2)");
     test_eval("((let ((x 1)) (lambda (y) (cons x y))) 2)");
+
+    return 0;
+}
+
+int main(void)
+{
+    test();
 
     return 0;
 }
