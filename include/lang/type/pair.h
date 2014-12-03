@@ -21,17 +21,17 @@ char *pair_to_string(object_t *self);
 #define pair_cdr(x) ((x)->pair.cdr)
 
 #define pair_caar(x) ((x)->pair.car->pair.car)
-#define pair_cadr(x) ((x)->pair.car->pair.cdr)
-#define pair_cdar(x) ((x)->pair.cdr->pair.car)
+#define pair_cadr(x) ((x)->pair.cdr->pair.car)
+#define pair_cdar(x) ((x)->pair.car->pair.cdr)
 #define pair_cddr(x) ((x)->pair.cdr->pair.cdr)
 
 #define pair_caaar(x) ((x)->pair.car->pair.car->pair.car)
-#define pair_cdaar(x) ((x)->pair.cdr->pair.car->pair.car)
+#define pair_cdaar(x) ((x)->pair.car->pair.car->pair.cdr)
 #define pair_cadar(x) ((x)->pair.car->pair.cdr->pair.car)
-#define pair_caadr(x) ((x)->pair.car->pair.car->pair.cdr)
-#define pair_cddar(x) ((x)->pair.cdr->pair.cdr->pair.car)
+#define pair_caadr(x) ((x)->pair.cdr->pair.car->pair.car)
+#define pair_cddar(x) ((x)->pair.car->pair.cdr->pair.cdr)
 #define pair_cdadr(x) ((x)->pair.cdr->pair.car->pair.cdr)
-#define pair_caddr(x) ((x)->pair.car->pair.cdr->pair.cdr)
+#define pair_caddr(x) ((x)->pair.cdr->pair.cdr->pair.car)
 #define pair_cdddr(x) ((x)->pair.cdr->pair.cdr->pair.cdr)
 
 object_t *pair_set_car(object_t *self, object_t *car);
