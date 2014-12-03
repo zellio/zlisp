@@ -21,7 +21,7 @@
 \.                                        { return TOKEN(TOKEN_DOT); }
 \'                                        { return TOKEN(TOKEN_QUOTE); }
 `                                         { return TOKEN(TOKEN_BACK_QUOTE); }
-#\.                                       { yylval->str = strndup(yytext, yyleng); return TOKEN_CHARACTER; }
+#\\.                                      { yylval->str = strndup(yytext, yyleng); return TOKEN_CHARACTER; }
 \"([^\"]|\\\")+\"                         { yylval->str = strndup(yytext, yyleng); return TOKEN_STRING; }
 [+-]?[0-9]+                               { yylval->fixnum = atof(yytext); return TOKEN_FIXNUM; }
 [+-]?[0-9]+\.[0-9]+                       { yylval->real = atof(yytext); return TOKEN_REAL; }

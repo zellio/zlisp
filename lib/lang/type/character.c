@@ -25,6 +25,6 @@ char *character_to_string(object_t *self)
     if (str == NULL)
         error("Out of memory error in `character_to_string`");
 
-    snprintf(str, 3, "#\\%c", self->character);
+    snprintf(str, 4, "#\\%c", self->character);
     return str;
 }

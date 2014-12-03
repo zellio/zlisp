@@ -185,6 +185,7 @@ int test(void)
     printf("*** Testing parser ***\n");
     test_parser("asdf");
     test_parser("\"ASDF\"");
+    test_parser("#\\c");
     test_parser("-1234");
     test_parser("-1432.2523");
     test_parser("()");
@@ -199,6 +200,7 @@ int test(void)
     test_eval("nil");
     test_eval("#t");
     test_eval("#f");
+    test_eval("#\\c");
     test_eval("-1334");
     test_eval("-1334.2425");
     test_eval("(quote a)");
@@ -216,10 +218,9 @@ int test(void)
 
 int main(void)
 {
-
-    fprintf(stdout, "Zlisp 0.1.0\n");
+    fprintf(stdout, "zlisp 0.1.0\n");
     fprintf(stdout, "Copyright (C) 2014 Zachary Elliott\n\n");
-    fprintf(stdout, "Zlisp is a toy implementation of scheme.\n");
+    fprintf(stdout, "zlisp is a toy implementation of scheme.\n");
 
     size_t buffer_size = 1024L;
     char *buffer = calloc(buffer_size, 1);
