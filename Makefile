@@ -21,11 +21,11 @@ BINDIR=bin
 
 LEX_SRCS := $(shell find $(SRCDIR) -name '*.$(LEX_EXT)')
 LEX_OBJS := $(patsubst %.$(LEX_EXT),%.$(SRC_EXT),$(LEX_SRCS))\
-  $(patsubst $(SRCDIR)%.$(LEX_EXT),$(INCDIR)%.$(INC_EXT),$(LEX_SRCS))
+	$(patsubst $(SRCDIR)%.$(LEX_EXT),$(INCDIR)%.$(INC_EXT),$(LEX_SRCS))
 
 YACC_SRCS := $(shell find $(SRCDIR) -name '*.$(YACC_EXT)')
 YACC_OBJS := $(patsubst %.$(YACC_EXT),%.$(SRC_EXT),$(YACC_SRCS))\
-  $(patsubst $(SRCDIR)%.$(YACC_EXT),$(INCDIR)%.$(INC_EXT),$(YACC_SRCS))
+	$(patsubst $(SRCDIR)%.$(YACC_EXT),$(INCDIR)%.$(INC_EXT),$(YACC_SRCS))
 
 SRCS := $(shell find $(SRCDIR) -name '*.$(SRC_EXT)')
 SRCDIRS := $(shell find . -name '*.$(SRC_EXT)' -exec dirname {} \; | uniq)
