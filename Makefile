@@ -1,42 +1,38 @@
 APP=zlisp
 
 CC=clang
-CFLAGS=-ggdb -x c --std=c11 -D_POSIX_C_SOURCE=200809L -c -Wall -Wextra -pedantic -ferror-limit=1
-LDFLAGS=-lm
-
 LEX=flex
 YACC=bison
-YFLAGS=
-
 RM=rm
 
-SRCEXT=c
+CFLAGS=-ggdb -x c --std=c11 -D_POSIX_C_SOURCE=200809L -c -Wall -Wextra -pedantic -ferror-limit=1
+LDFLAGS=-lm
+YFLAGS=
+
+SRC_EXT=c
+INC_EXT=h
+LEX_EXT=l
+YACC_EXT=y
+
 SRCDIR=lib
-
-INCEXT=h
 INCDIR=include
-
-LEXEXT=l
-
-YACCEXT=y
-
 OBJDIR=obj
 BINDIR=bin
 
-LEX_SRCS := $(shell find $(SRCDIR) -name '*.$(LEXEXT)')
-LEX_OBJS := $(patsubst %.$(LEXEXT),%.$(SRCEXT),$(LEX_SRCS))\
-  $(patsubst $(SRCDIR)%.$(LEXEXT),$(INCDIR)%.$(INCEXT),$(LEX_SRCS))
+LEX_SRCS := $(shell find $(SRCDIR) -name '*.$(LEX_EXT)')
+LEX_OBJS := $(patsubst %.$(LEX_EXT),%.$(SRC_EXT),$(LEX_SRCS))\
+  $(patsubst $(SRCDIR)%.$(LEX_EXT),$(INCDIR)%.$(INC_EXT),$(LEX_SRCS))
 
-YACC_SRCS := $(shell find $(SRCDIR) -name '*.$(YACCEXT)')
-YACC_OBJS := $(patsubst %.$(YACCEXT),%.$(SRCEXT),$(YACC_SRCS))\
-  $(patsubst $(SRCDIR)%.$(YACCEXT),$(INCDIR)%.$(INCEXT),$(YACC_SRCS))
+YACC_SRCS := $(shell find $(SRCDIR) -name '*.$(YACC_EXT)')
+YACC_OBJS := $(patsubst %.$(YACC_EXT),%.$(SRC_EXT),$(YACC_SRCS))\
+  $(patsubst $(SRCDIR)%.$(YACC_EXT),$(INCDIR)%.$(INC_EXT),$(YACC_SRCS))
 
-SRCS := $(shell find $(SRCDIR) -name '*.$(SRCEXT)')
-SRCDIRS := $(shell find . -name '*.$(SRCEXT)' -exec dirname {} \; | uniq)
+SRCS := $(shell find $(SRCDIR) -name '*.$(SRC_EXT)')
+SRCDIRS := $(shell find . -name '*.$(SRC_EXT)' -exec dirname {} \; | uniq)
 
 OBJS := $(patsubst $(SRCDIR)%.l,$(OBJDIR)%.o,$(LEX_SRCS))\
 	$(patsubst $(SRCDIR)%.y,$(OBJDIR)%.o,$(YACC_SRCS))\
-	$(patsubst $(SRCDIR)%.$(SRCEXT),$(OBJDIR)%.o,$(SRCS))
+	$(patsubst $(SRCDIR)%.$(SRC_EXT),$(OBJDIR)%.o,$(SRCS))
 
 OBJDIRS := $(subst $(SRCDIR),$(OBJDIR),$(SRCDIRS))
 
@@ -47,9 +43,9 @@ all: $(BINDIR)/$(APP)
 $(BINDIR)/$(APP): buildrepo $(LEX_OBJS) $(YACC_OBJS) $(OBJS)
 	@mkdir -p `dirname $(@)`
 	@echo "Linking $(@) ... "
-	@$(CC) $(shell find $(OBJDIR) -iname '*.o') $(LDFLAGS) -o $(@)
+	@$(CC) $(sort $(OBJS)) $(LDFLAGS) -o $(@)
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
+$(OBJDIR)/%.o: $(SRCDIR)/%.$(SRC_EXT)
 	@echo "Compiling $(<) ... "
 	@$(CC) $(CFLAGS) -I$(INCDIR) $(<) -o $(@)
 
