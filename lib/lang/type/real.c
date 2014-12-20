@@ -10,12 +10,12 @@ object_t *real_create(double value)
 
     obj->real = value;
 
-    obj->comperator = &real_comperator;
+    obj->comparator = &real_comparator;
 
     return obj;
 }
 
-int real_comperator(object_t *self, object_t *other)
+int real_comparator(object_t *self, object_t *other)
 {
     return self->real - other->real;
 }

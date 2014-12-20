@@ -2,7 +2,7 @@
 
 object_t *ZLC_NIL = &(object_t) {
     .type = TYPE_NIL,
-    .comperator = NULL,
+    .comparator = NULL,
     .destructor = NULL,
     .to_string = &nil_to_string,
     .symbol = {

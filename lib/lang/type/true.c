@@ -2,7 +2,7 @@
 
 object_t *ZLC_TRUE = &(object_t) {
     .type = TYPE_TRUE,
-    .comperator = NULL,
+    .comparator = NULL,
     .destructor = NULL,
     .to_string = &true_to_string
 };

@@ -10,13 +10,13 @@ object_t *fixnum_create(int64_t value)
 
     obj->fixnum = value;
 
-    obj->comperator = &fixnum_comperator;
+    obj->comparator = &fixnum_comparator;
     obj->to_string = &fixnum_to_string;
 
     return obj;
 }
 
-int fixnum_comperator(object_t *self, object_t *other)
+int fixnum_comparator(object_t *self, object_t *other)
 {
     return self->fixnum - other->fixnum;
 }

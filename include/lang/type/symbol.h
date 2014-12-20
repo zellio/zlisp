@@ -15,7 +15,7 @@ object_t *symbol_create(char *value);
 #define is_symbol(x) (IS_TYPE((x), TYPE_SYMBOL))
 
 int symbol_destructor(object_t *self);
-int symbol_comperator(object_t *self, object_t *other);
+int symbol_comparator(object_t *self, object_t *other);
 char *symbol_to_string(object_t *self);
 
 #ifdef __cplusplus

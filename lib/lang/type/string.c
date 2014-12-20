@@ -14,7 +14,7 @@ object_t *string_create(char *value)
 
     obj->string.length = size;
 
-    obj->comperator = &string_comperator;
+    obj->comparator = &string_comparator;
     obj->destructor = &string_destructor;
     obj->to_string = &string_to_string;
 
@@ -31,7 +31,7 @@ int string_destructor(object_t *self)
     return 0;
 }
 
-int string_comperator(object_t *self, object_t *other)
+int string_comparator(object_t *self, object_t *other)
 {
     char *s_val = self->string.value;
     size_t s_len = self->string.length;

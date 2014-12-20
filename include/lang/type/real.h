@@ -14,7 +14,7 @@ object_t *real_create(double value);
 
 #define is_real(x) (IS_TYPE((x), TYPE_REAL))
 
-int real_comperator(object_t *self, object_t *other);
+int real_comparator(object_t *self, object_t *other);
 
 #ifdef __cplusplus
 };

@@ -24,7 +24,7 @@ object_t *symbol_create(char *value)
 
     obj->symbol.hash = symbol_hash_fn(value);
 
-    obj->comperator = &symbol_comperator;
+    obj->comparator = &symbol_comparator;
     obj->destructor = &symbol_destructor;
     obj->to_string = &symbol_to_string;
 
@@ -41,7 +41,7 @@ int symbol_destructor(object_t *self)
     return 0;
 }
 
-int symbol_comperator(object_t *self, object_t *other)
+int symbol_comparator(object_t *self, object_t *other)
 {
     return self->symbol.hash - other->symbol.hash;
 }

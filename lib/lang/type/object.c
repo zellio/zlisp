@@ -59,8 +59,8 @@ int object_compare(object_t *object1, object_t *object2)
     if (TYPE(object1) != TYPE(object2))
         error("Type error in object_compare");
 
-    if (*object1->comperator)
-        return (*object1->comperator)(object1, object2);
+    if (*object1->comparator)
+        return (*object1->comparator)(object1, object2);
 
     return (uint32_t)(object1 - object2);
 }

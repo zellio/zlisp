@@ -8,13 +8,13 @@ object_t *character_create(char value)
 
     obj->character = value;
 
-    obj->comperator = &character_comperator;
+    obj->comparator = &character_comparator;
     obj->to_string = &character_to_string;
 
     return obj;
 }
 
-int character_comperator(object_t *self, object_t *other)
+int character_comparator(object_t *self, object_t *other)
 {
     return self->character - other->character;
 }

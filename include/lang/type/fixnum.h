@@ -14,7 +14,7 @@ object_t *fixnum_create(int64_t value);
 
 #define is_fixnum(x) (IS_TYPE((x), TYPE_FIXNUM))
 
-int fixnum_comperator(object_t *self, object_t *other);
+int fixnum_comparator(object_t *self, object_t *other);
 char *fixnum_to_string(object_t *self);
 
 #ifdef __cplusplus

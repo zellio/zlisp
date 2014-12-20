@@ -37,7 +37,7 @@ typedef struct object object_t;
 struct object {
     object_type type;
 
-    int (*comperator)(object_t *self, object_t *other);
+    int (*comparator)(object_t *self, object_t *other);
     int (*destructor)(object_t *self);
     char *(*to_string)(object_t *self);
 
